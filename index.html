@@ -13,7 +13,7 @@
       --surface-3: #1f2433;
       --border:    #262c3d;
       --border-hi: #363e56;
-      --accent:    #f59e0b; 
+      --accent:    #f59e0b;
       --accent-dim:#3b2808;
       --accent-glow: rgba(245, 158, 11, 0.15);
       --blue:      #60a5fa;
@@ -59,114 +59,175 @@
     body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
     /* ── TOP BAR ── */
-    .topbar { position: sticky; top: 0; z-index: 100; background: rgba(13,15,20,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar { position: sticky; top: 0; z-index: 100; background: rgba(13,15,20,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
     body.light .topbar { background: rgba(240,242,247,0.88); }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; }
-    .topbar-icon { width: 30px; height: 30px; background: var(--accent); color: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+
+    .topbar-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .topbar-icon { width: 32px; height: 32px; background: var(--accent); color: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
     .topbar-title { font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: var(--text); }
     .topbar-title span { color: var(--accent); }
-    .progress-wrap { display: flex; align-items: center; gap: 10px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono); }
-    .progress-bar-outer { width: 120px; height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
-    .progress-bar-inner { height: 100%; background: var(--accent); border-radius: 99px; width: 0%; transition: width 0.4s ease; box-shadow: 0 0 8px var(--accent); }
+
+    .topbar-right { display: flex; align-items: center; gap: 24px; }
+
+    .progress-group { display: flex; align-items: center; gap: 12px; font-size: 0.7rem; color: var(--text-muted); font-family: var(--mono); }
+    .progress-bar-outer { width: 100px; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-bar-inner { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; box-shadow: 0 0 8px var(--accent); }
+
+    .topbar-actions { display: flex; align-items: center; gap: 8px; padding: 0 16px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+
+    .btn-top { display: flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; font-family: var(--sans); transition: all 0.2s; }
+    .btn-copy-top { background: var(--accent); color: #000; }
+    .btn-copy-top:hover { background: #fbbf24; transform: translateY(-1px); }
+    .btn-html-top { background: var(--blue-dim); color: var(--blue); border-color: rgba(96,165,250,0.3); }
+    .btn-html-top:hover { background: rgba(96,165,250,0.25); transform: translateY(-1px); }
+    .btn-clear-top { background: transparent; color: var(--text-muted); border-color: var(--border); }
+    .btn-clear-top:hover { background: var(--red-dim); color: var(--red); border-color: rgba(248,113,113,0.3); }
+
+    .theme-toggle { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); font-family: var(--mono); }
 
     /* ── LAYOUT ── */
-    .layout { display: flex; flex: 1; max-width: 1080px; margin: 0 auto; width: 100%; padding: 32px 24px 80px; gap: 28px; }
-    .sidebar { width: 196px; flex-shrink: 0; position: sticky; top: 76px; align-self: flex-start; }
+    .layout { display: flex; flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 32px 24px 80px; gap: 28px; }
+    .sidebar { width: 190px; flex-shrink: 0; position: sticky; top: 96px; align-self: flex-start; }
     .sidebar-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; font-family: var(--mono); padding-left: 12px; }
     .sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
-    .nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 12px; border-radius: 8px; font-size: 0.76rem; font-weight: 500; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; border: 1px solid transparent; }
-    .nav-item:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+    .nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 8px; font-size: 0.76rem; font-weight: 500; color: var(--text-muted); cursor: pointer; text-decoration: none; border: 1px solid transparent; }
+    .nav-item:hover { color: var(--text); background: var(--surface-2); }
     .nav-item.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(245,158,11,0.2); }
-    .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-    .main { flex: 1; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
-    .main form { display: flex; flex-direction: column; gap: 24px; }
+    .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+    .main { flex: 1; display: flex; flex-direction: column; gap: 48px; min-width: 0; }
+    .section-divider { height: 1px; background: linear-gradient(to right, transparent, var(--border-hi) 30%, var(--border-hi) 70%, transparent); margin: -24px 0; }
 
     /* ── SECTION CARD ── */
-    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: border-color 0.2s; animation: fadeUp 0.35s ease both; }
-    .section-card:hover { border-color: var(--border-hi); }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; animation: fadeUp 0.35s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    
+
     .section-head { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
     .section-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
     .icon-yellow { background: var(--accent-dim); }
     .icon-blue   { background: var(--blue-dim); }
-    .icon-red    { background: var(--red-dim); }
     .icon-purple { background: #1e1a36; }
     .icon-green  { background: var(--green-dim); }
     body.light .icon-purple { background: #f3f0ff; }
 
-    .section-head-text h2 { font-size: 0.87rem; font-weight: 700; color: var(--text); }
-    .section-head-text p { font-size: 0.71rem; color: var(--text-muted); margin-top: 2px; }
-    .section-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .section-head-text h2 { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+    .section-head-text p { font-size: 0.7rem; color: var(--text-muted); margin-top: 1px; }
+
+    .section-lock { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 0.62rem; font-family: var(--mono); color: var(--text-dim); cursor: pointer; }
+    .section-lock input { display: none; }
+    .lock-icon { font-size: 14px; opacity: 0.3; transition: all 0.2s; }
+    .section-lock input:checked + .lock-icon { opacity: 1; color: var(--accent); }
+
+    .section-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 22px; }
 
     /* ── FIELDS ── */
     .field { display: flex; flex-direction: column; gap: 6px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
-    .field-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--mono); display: flex; align-items: center; gap: 6px; }
-    .tag-req { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; color: var(--accent); background: var(--accent-dim); border-radius: 4px; padding: 1px 5px; }
-    .tag-opt { font-size: 0.68rem; font-weight: 400; color: var(--text-dim); text-transform: none; letter-spacing: 0; font-family: var(--sans); }
-    input[type="text"], input[type="file"], textarea, select { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 9px 13px; font-family: var(--sans); font-size: 0.855rem; color: var(--text); outline: none; width: 100%; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
-    input[type="text"]::placeholder, textarea::placeholder { color: var(--text-dim); }
-    input[type="file"] { padding: 6px 10px; font-size: 0.75rem; cursor: pointer; color: var(--text-muted); }
-    input[type="file"]::file-selector-button { background: var(--surface-3); border: 1px solid var(--border-hi); color: var(--text); border-radius: 6px; padding: 4px 10px; margin-right: 10px; cursor: pointer; font-family: var(--sans); }
-    select option { background: var(--surface-2); color: var(--text); }
+    .field-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--mono); display: flex; align-items: center; gap: 6px; }
+    .tag-req { font-size: 0.58rem; font-weight: 700; color: var(--accent); background: var(--accent-dim); border-radius: 4px; padding: 1px 5px; }
+    .tag-opt { font-size: 0.65rem; font-weight: 400; color: var(--text-dim); text-transform: none; font-family: var(--sans); }
+
+    input[type="text"], textarea, select { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 10px 14px; font-family: var(--sans); font-size: 0.85rem; color: var(--text); outline: none; width: 100%; }
     input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--accent); background: var(--surface-3); box-shadow: 0 0 0 3px var(--accent-glow); }
     textarea { resize: vertical; }
 
-    /* ── TOGGLE & COLLAPSIBLE ── */
-    .toggle-row { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; transition: all 0.15s; user-select: none; }
-    .toggle-row:hover { border-color: var(--border-hi); background: var(--surface-3); }
-    .toggle-row.active { border-color: rgba(245,158,11,0.3); background: var(--accent-dim); }
-    .switch { position: relative; width: 34px; height: 18px; flex-shrink: 0; }
-    .switch input { display: none; }
-    .switch-track { position: absolute; inset: 0; background: var(--border-hi); border-radius: 99px; transition: background 0.2s; }
-    .switch-thumb { position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; background: var(--text-dim); border-radius: 50%; transition: transform 0.2s, background 0.2s; }
-    .switch input:checked ~ .switch-track { background: var(--accent); }
-    .switch input:checked ~ .switch-thumb { transform: translateX(16px); background: #0d0f14; }
-    .toggle-label { font-size: 0.83rem; font-weight: 500; color: var(--text-muted); transition: color 0.15s; }
-    .toggle-row.active .toggle-label { color: var(--text); }
-    .collapsible { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.25s ease; opacity: 0; }
-    .collapsible.open { max-height: 900px; opacity: 1; }
-    .collapsible-inner { padding-top: 14px; display: flex; flex-direction: column; gap: 14px; }
-
-    /* ── LISTS (SCENARIOS & DATA) ── */
+    /* ── LISTS ── */
     .list-container { display: flex; flex-direction: column; gap: 10px; }
-    .list-item { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); background: var(--surface-2); padding: 8px 14px; border-radius: var(--r); transition: opacity 0.2s, transform 0.2s; position: relative; }
+    .list-item { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); background: var(--surface-2); padding: 8px 14px; border-radius: var(--r); position: relative; }
     .list-num { font-family: var(--mono); font-size: 0.75rem; font-weight: 700; color: var(--accent); flex-shrink: 0; }
-    .list-item input[type="text"].step-input { flex: 1; background: transparent; border: none; box-shadow: none; padding: 4px; margin: 0; }
-    
-    .data-item { flex-direction: column; align-items: stretch; padding: 16px 14px 14px; gap: 12px; }
-    .data-item .btn-remove { position: absolute; top: 8px; right: 8px; }
-
-    .btn-remove { background: none; border: 1px solid transparent; cursor: pointer; color: var(--text-dim); font-size: 0.75rem; padding: 3px 9px; border-radius: 6px; transition: all 0.15s; font-family: var(--mono); }
-    .btn-remove:hover { color: var(--red); background: var(--red-dim); border-color: rgba(248,113,113,0.2); }
-    
-    .btn-add { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 1.5px dashed var(--border-hi); border-radius: var(--r); background: transparent; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; font-family: var(--sans); cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+    .list-item input.step-input { flex: 1; background: transparent; border: none; padding: 4px; color: var(--text); font-size: 0.85rem; outline: none; }
+    .btn-remove { background: none; border: none; cursor: pointer; color: var(--text-dim); font-size: 0.75rem; padding: 5px; transition: color 0.2s; }
+    .btn-remove:hover { color: var(--red); }
+    .btn-add { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 1.5px dashed var(--border-hi); border-radius: var(--r); background: transparent; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     .btn-add:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
     /* ── CHECKLIST ── */
-    .checklist-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    .check-item { display: flex; align-items: center; gap: 10px; padding: 9px 13px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface-2); font-size: 0.8rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; user-select: none; }
-    .check-item:hover { border-color: var(--border-hi); color: var(--text); background: var(--surface-3); }
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface-2); font-size: 0.78rem; color: var(--text-muted); cursor: pointer; }
     .check-item.checked { background: var(--accent-dim); border-color: rgba(245,158,11,0.3); color: var(--accent); }
-    .check-item input[type="checkbox"] { display: none; }
-    .check-box { width: 16px; height: 16px; border: 1.5px solid var(--border-hi); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all 0.15s; color: transparent; }
+    .check-item input { display: none; }
+    .check-box { width: 16px; height: 16px; border: 1.5px solid var(--border-hi); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; }
     .check-item.checked .check-box { background: var(--accent); border-color: var(--accent); color: #000; }
 
-    /* ── BOTÕES E TOAST ── */
-    .btn-copy { display: flex; align-items: center; gap: 9px; padding: 12px 30px; background: var(--accent); color: #060a0c; border: none; border-radius: var(--r); font-family: var(--sans); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: all 0.15s; box-shadow: 0 0 24px rgba(245,158,11,0.2); letter-spacing: -0.01em; }
-    .btn-copy:hover { background: #fbbf24; box-shadow: 0 0 36px rgba(245,158,11,0.35); transform: translateY(-1px); }
-    .btn-copy:active { transform: translateY(0); }
-    .toast { position: fixed; bottom: 28px; right: 28px; background: var(--surface-3); border: 1px solid rgba(245,158,11,0.4); border-radius: var(--r); padding: 12px 20px; font-size: 0.82rem; color: var(--accent); font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px var(--accent-glow); transform: translateY(80px); opacity: 0; transition: all 0.3s cubic-bezier(.175,.885,.32,1.275); z-index: 9999; pointer-events: none; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface-3); border: 1px solid var(--accent); border-radius: var(--r); padding: 12px 20px; font-size: 0.8rem; color: var(--accent); font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 999; }
     .toast.show { transform: translateY(0); opacity: 1; }
-    .theme-toggle { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); font-family: var(--mono); transition: all 0.15s; user-select: none; margin-left: 16px; }
-    .theme-toggle:hover { border-color: var(--border-hi); color: var(--text); }
-    .action-bar { display: flex; justify-content: flex-end; padding-top: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 99px; }
 
-    @media (max-width: 768px) { .sidebar { display: none; } .layout { padding: 20px 16px 80px; } .grid-2, .grid-4 { grid-template-columns: 1fr; } .topbar { padding: 0 16px; } }
+    /* ── MENU NAVIGATOR ── */
+    .menu-nav-breadcrumb {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+      background: var(--surface-3); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 10px 14px; font-family: var(--mono); font-size: 0.72rem; min-height: 42px;
+    }
+    .menu-nav-breadcrumb .crumb-root { color: var(--text-dim); }
+    .menu-nav-breadcrumb .crumb { color: var(--blue); cursor: pointer; }
+    .menu-nav-breadcrumb .crumb:hover { text-decoration: underline; }
+    .menu-nav-breadcrumb .crumb-sep { color: var(--text-dim); }
+    .menu-nav-breadcrumb .crumb-current { color: var(--accent); font-weight: 700; }
+    .menu-nav-breadcrumb .crumb-hint { color: var(--text-dim); font-style: italic; }
+
+    .menu-nav-filter {
+      display: flex; gap: 8px; align-items: center;
+    }
+    .menu-nav-filter input {
+      flex: 1; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 8px 12px; font-size: 0.8rem;
+      color: var(--text); font-family: var(--sans); outline: none;
+    }
+    .menu-nav-filter input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .btn-back {
+      display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+      border-radius: var(--r); background: var(--surface-3); border: 1px solid var(--border);
+      color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      font-family: var(--sans); transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-back:hover { color: var(--text); border-color: var(--border-hi); }
+    .btn-back:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .menu-items-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;
+    }
+    .menu-item-btn {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      padding: 9px 12px; border-radius: var(--r);
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.78rem; cursor: pointer;
+      font-family: var(--sans); font-weight: 500;
+      transition: all 0.18s; text-align: left;
+    }
+    .menu-item-btn:hover { background: var(--surface-3); border-color: var(--border-hi); color: var(--text); }
+    .menu-item-btn.has-children { color: var(--blue); border-color: rgba(96,165,250,0.2); }
+    .menu-item-btn.has-children:hover { background: var(--blue-dim); border-color: rgba(96,165,250,0.4); }
+    .menu-item-btn .item-arrow { font-size: 0.65rem; opacity: 0.6; flex-shrink: 0; }
+    .menu-item-btn.is-leaf.selected { background: var(--accent-dim); border-color: rgba(245,158,11,0.4); color: var(--accent); }
+
+    .menu-nav-result {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: var(--green-dim); border: 1px solid rgba(74,222,128,0.2);
+      border-radius: var(--r); padding: 10px 14px;
+    }
+    .menu-nav-result .result-path {
+      flex: 1; font-family: var(--mono); font-size: 0.78rem; color: var(--green); font-weight: 600;
+    }
+    .btn-copy-path {
+      padding: 7px 14px; border-radius: 8px; background: transparent; color: var(--green);
+      border: 1px solid rgba(74,222,128,0.3); font-size: 0.73rem; font-weight: 600; cursor: pointer;
+      font-family: var(--sans); transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-copy-path:hover { background: var(--green-dim); }
+    .btn-clear-path {
+      padding: 7px 10px; border-radius: 8px; background: transparent; color: var(--text-dim);
+      border: 1px solid var(--border); font-size: 0.73rem; cursor: pointer;
+      font-family: var(--sans); transition: all 0.2s;
+    }
+    .btn-clear-path:hover { color: var(--red); border-color: rgba(248,113,113,0.3); background: var(--red-dim); }
+
+    .menu-empty { text-align: center; padding: 20px; color: var(--text-dim); font-size: 0.8rem; }
+
+    @media (max-width: 900px) {
+      .topbar-right .progress-group { display: none; }
+      .sidebar { display: none; }
+      .grid-2, .grid-4 { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -176,210 +237,202 @@
     <div class="topbar-icon">🐞</div>
     <span class="topbar-title">po<span>.</span>bugreport</span>
   </div>
-  <div class="progress-wrap">
-    <span id="progressLabel">0 / 0</span>
-    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+
+  <div class="topbar-right">
+    <div class="progress-group">
+      <span id="progressLabel">0 / 0</span>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+    </div>
+
+    <div class="topbar-actions">
+      <button type="button" class="btn-top btn-clear-top" onclick="limparTela()" title="Limpar campos não travados">
+        <span>🗑</span> Limpar
+      </button>
+      <button type="button" class="btn-top btn-copy-top" onclick="copiarParaClipboard()">
+        <span>📋</span> Markdown
+      </button>
+      <button type="button" class="btn-top btn-html-top" onclick="copiarHTML()">
+        <span>🌐</span> Copiar HTML
+      </button>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">
       <span id="themeIcon">☀</span> <span id="themeLabel">Claro</span>
     </button>
   </div>
 </header>
 
 <div class="layout">
-
   <aside class="sidebar">
-    <div class="sidebar-label">Seções</div>
+    <div class="sidebar-label">Navegação</div>
     <nav class="sidebar-nav">
-      <a class="nav-item active" href="#sec-classificacao"><div class="nav-dot"></div>Identificação</a>
-      <a class="nav-item" href="#sec-descritivo"><div class="nav-dot"></div>Comportamento & Regras</a>
+      <a class="nav-item active" href="#sec-caminho"><div class="nav-dot"></div>Caminho no Menu</a>
+      <a class="nav-item" href="#sec-descritivo"><div class="nav-dot"></div>Comportamento</a>
       <a class="nav-item" href="#sec-dados"><div class="nav-dot"></div>Massa de Dados</a>
       <a class="nav-item" href="#sec-passos"><div class="nav-dot"></div>Reprodução</a>
-      <a class="nav-item" href="#sec-aceite"><div class="nav-dot"></div>Aceite & Restrições</a>
-      <a class="nav-item" href="#sec-impacto"><div class="nav-dot"></div>Impacto & Evidências</a>
-      <a class="nav-item" href="#sec-checklist"><div class="nav-dot"></div>Verificação QA</a>
+      <a class="nav-item" href="#sec-checklist"><div class="nav-dot"></div>Qualidade QA</a>
     </nav>
   </aside>
 
   <main class="main">
   <form id="checklistForm">
 
-    <div class="section-card" id="sec-classificacao">
+    <!-- ══════════════════════════════════════════════════════════
+         SEÇÃO: CAMINHO NO MENU
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section-card" id="sec-caminho">
       <div class="section-head">
-        <div class="section-icon icon-yellow">🏷</div>
+        <div class="section-icon icon-green">🗺</div>
         <div class="section-head-text">
-          <h2>Identificação</h2>
-          <p>Título e módulo afetado</p>
+          <h2>Caminho no Menu</h2>
+          <p>Navegue pela hierarquia do sistema para gerar o caminho</p>
         </div>
+        <label class="section-lock">
+          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
+        </label>
       </div>
       <div class="section-body">
-        <div class="grid-2">
-          <div class="field">
-            <label class="field-label">Título do Bug <span class="tag-req">obrigatório</span></label>
-            <input type="text" name="titulo" required placeholder="Ex: Erro 500 ao calcular férias com desconto X">
-          </div>
-          <div class="field">
-            <label class="field-label">Módulo / Tela afetada <span class="tag-req">obrigatório</span></label>
-            <input type="text" name="modulo" required placeholder="Ex: Cálculo de Férias, Integração, Relatório X">
-          </div>
+
+        <!-- Breadcrumb -->
+        <div class="menu-nav-breadcrumb" id="menuBreadcrumb">
+          <span class="crumb-hint">Selecione um item abaixo para navegar...</span>
         </div>
+
+        <!-- Filtro + Voltar -->
+        <div class="menu-nav-filter">
+          <button type="button" class="btn-back" id="menuBtnBack" onclick="menuGoBack()" disabled>← Voltar</button>
+          <input type="text" id="menuFilter" placeholder="Filtrar itens..." oninput="menuRender()" autocomplete="off">
+        </div>
+
+        <!-- Grade de itens -->
+        <div class="menu-items-grid" id="menuItemsGrid"></div>
+
+        <!-- Resultado do caminho selecionado -->
+        <div class="menu-nav-result" id="menuResult" style="display:none;">
+          <span class="result-path" id="menuResultPath"></span>
+          <button type="button" class="btn-copy-path" onclick="menuCopiarCaminho()">📋 Copiar Caminho</button>
+          <button type="button" class="btn-clear-path" onclick="menuLimparSelecao()" title="Limpar seleção">✕</button>
+        </div>
+
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════════
+         SEÇÃO: COMPORTAMENTO
+    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-descritivo">
       <div class="section-head">
         <div class="section-icon icon-blue">📝</div>
         <div class="section-head-text">
-          <h2>Comportamento & Regras de Negócio</h2>
-          <p>O problema, variações e a regra correta esperada</p>
+          <h2>Comportamento</h2>
+          <p>O que houve e o que se espera</p>
         </div>
+        <label class="section-lock">
+          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
+        </label>
       </div>
       <div class="section-body">
         <div class="field">
-          <label class="field-label">Resultado Atual (O Erro) <span class="tag-req">obrigatório</span></label>
-          <textarea name="comportamentoAtual" rows="3" required placeholder="Descreva exatamente o erro. Ex: Ao clicar em 'Salvar', o sistema exibe erro 500 e não grava."></textarea>
+          <label class="field-label">Resultado Atual <span class="tag-req">obrigatório</span></label>
+          <textarea name="comportamentoAtual" rows="3" required placeholder="Descreva o erro detalhadamente..."></textarea>
         </div>
         <div class="field">
-          <label class="field-label">Resultado Esperado (Objetivo) <span class="tag-req">obrigatório</span></label>
-          <textarea name="comportamentoEsperado" rows="3" required placeholder="Como o sistema deveria se comportar? Ex: A folha deve calcular com o desconto de 11%."></textarea>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label class="field-label">Regras de Negócio Envolvidas <span class="tag-opt">(opcional)</span></label>
-            <textarea name="regrasNegocio" rows="3" placeholder="Quais regras, exceções ou validações devem ser aplicadas?"></textarea>
-          </div>
-          <div class="field">
-            <label class="field-label">Variações / Cenários <span class="tag-opt">(opcional)</span></label>
-            <textarea name="variacoes" rows="3" placeholder="Ex: Com o filtro X funciona, mas com o Y dá erro."></textarea>
-          </div>
+          <label class="field-label">Resultado Esperado <span class="tag-req">obrigatório</span></label>
+          <textarea name="comportamentoEsperado" rows="3" required placeholder="Como o sistema deveria funcionar?"></textarea>
         </div>
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════════
+         SEÇÃO: MASSA DE DADOS
+    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-dados">
       <div class="section-head">
         <div class="section-icon icon-purple">🗄</div>
         <div class="section-head-text">
-          <h2>Massa de Dados para Reprodução</h2>
-          <p>Contexto de ambiente e lista de cenários afetados</p>
+          <h2>Massa de Dados</h2>
+          <p>Acesso e ambiente</p>
         </div>
+        <label class="section-lock">
+          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
+        </label>
       </div>
       <div class="section-body">
         <div class="grid-2">
           <div class="field">
-            <label class="field-label">Instância / Banco de Dados <span class="tag-req">obrigatório</span></label>
-            <input type="text" name="bancoDados" required placeholder="Ex: PRD_CLIENTE_A, DB_FOLHA_HML">
+            <label class="field-label">Instância <span class="tag-req">obrigatório</span></label>
+            <select name="instanciaCombo" id="instanciaCombo" required onchange="toggleOutroInstancia()">
+              <option value="">Selecione...</option>
+              <option value="FOLHATESTEDB\MASTER">FOLHATESTEDB\MASTER</option>
+              <option value="FOLHATESTEDB\HOTFIX">FOLHATESTEDB\HOTFIX</option>
+              <option value="FOLHATESTEDB\RELEASE">FOLHATESTEDB\RELEASE</option>
+              <option value="FOLHATESTEDB\DEVELOP">FOLHATESTEDB\DEVELOP</option>
+              <option value="FOLHATEST\SQLSERVERTHEOS">FOLHATEST\SQLSERVERTHEOS</option>
+              <option value="FOLHATEST\HOMOLOGACAO">FOLHATEST\HOMOLOGACAO</option>
+              <option value="FOLHATEST\RELEASE">FOLHATEST\RELEASE</option>
+              <option value="FOLHATEST\DESENVOLVIMENTO">FOLHATEST\DESENVOLVIMENTO</option>
+              <option value="OUTRO">OUTRO</option>
+            </select>
+            <input type="text" name="instanciaManual" id="instanciaManual" style="display:none; margin-top:8px;" placeholder="Digite a instância...">
           </div>
           <div class="field">
-            <label class="field-label">Usuário e Perfil de Acesso <span class="tag-opt">(importante)</span></label>
-            <input type="text" name="usuarioAcesso" placeholder="Ex: joao.silva (Perfil: Coordenador RH)">
+            <label class="field-label">Banco de Dados <span class="tag-req">obrigatório</span></label>
+            <input type="text" name="bancoDados" required placeholder="Ex: PRD_CLIENTE_A">
           </div>
         </div>
-        
-        <div class="list-container" id="dataList">
+
+        <div class="grid-2">
+          <div class="field">
+            <label class="field-label">Usuário e Perfil <span class="tag-opt">(opcional)</span></label>
+            <input type="text" name="usuarioAcesso" placeholder="Ex: suporte.theos">
           </div>
-        <button type="button" class="btn-add" onclick="adicionarMassaDados()">+ Adicionar Cenário de Dados</button>
+          <div class="field">
+            <label class="field-label">Senha <span class="tag-opt">(opcional)</span></label>
+            <input type="text" name="senhaAcesso" placeholder="Ex: @Theos2024">
+          </div>
+        </div>
+
+        <div class="list-container" id="dataList"></div>
+        <button type="button" class="btn-add" onclick="adicionarMassaDados()">+ Adicionar Cenário</button>
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════════
+         SEÇÃO: REPRODUÇÃO
+    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-passos">
       <div class="section-head">
         <div class="section-icon icon-yellow">🧪</div>
         <div class="section-head-text">
-          <h2>Passo a Passo para Reproduzir</h2>
-          <p>O caminho exato de cliques para chegar no erro</p>
+          <h2>Reprodução</h2>
+          <p>Passo a passo</p>
         </div>
+        <label class="section-lock">
+          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
+        </label>
       </div>
       <div class="section-body">
-        <div class="list-container" id="stepList">
-          </div>
+        <div class="list-container" id="stepList"></div>
         <button type="button" class="btn-add" onclick="adicionarPasso()">+ Adicionar Passo</button>
       </div>
     </div>
 
-    <div class="section-card" id="sec-aceite">
-      <div class="section-head">
-        <div class="section-icon icon-green">🎯</div>
-        <div class="section-head-text">
-          <h2>Critérios de Aceite & Restrições</h2>
-          <p>Definição de Pronto (DoD) e limites da alteração</p>
-        </div>
-      </div>
-      <div class="section-body">
-        <div class="field">
-          <label class="field-label">Critérios de Aceite <span class="tag-req">obrigatório</span></label>
-          <textarea name="criteriosAceite" rows="3" required placeholder="Como saberemos que o bug foi corrigido? Ex: O sistema deve exibir a tela X com o valor Y sem apresentar erro."></textarea>
-        </div>
-        <div class="field">
-          <label class="field-label">Restrições / Observações (O que NÃO alterar) <span class="tag-opt">(opcional)</span></label>
-          <textarea name="restricoes" rows="2" placeholder="Ex: Não alterar o comportamento legado para empresas do tipo Lucro Real."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-card" id="sec-impacto">
-      <div class="section-head">
-        <div class="section-icon icon-red">⚠</div>
-        <div class="section-head-text">
-          <h2>Impacto, Workaround e Evidências</h2>
-          <p>Impacto do erro e arquivos comprobatórios</p>
-        </div>
-      </div>
-      <div class="section-body">
-        <div class="grid-2">
-          <div class="field">
-            <label class="field-label">Volume da Área Afetada</label>
-            <input type="text" name="volumeImpacto" placeholder="Ex: Trava todo o Financeiro; Afeta 1 cliente...">
-          </div>
-          <div class="field">
-            <label class="field-label">Dependências / Integrações</label>
-            <input type="text" name="dependencias" placeholder="Ex: Evento do eSocial, API de terceiros, SEFAZ">
-          </div>
-        </div>
-
-        <label class="toggle-row" id="toggleWorkaround" for="chkWorkaround">
-          <div class="switch"><input type="checkbox" id="chkWorkaround"><div class="switch-track"></div><div class="switch-thumb"></div></div>
-          <span class="toggle-label">Existe um contorno (Workaround) provisório?</span>
-        </label>
-        <div id="divWorkaround" class="collapsible">
-          <div class="collapsible-inner">
-            <div class="field">
-              <label class="field-label">Descreva o Workaround</label>
-              <textarea name="workaroundDesc" rows="2" placeholder="Ex: Lançar a verba manualmente antes de processar..."></textarea>
-            </div>
-          </div>
-        </div>
-        
-        <div class="grid-2">
-          <div class="field">
-            <label class="field-label">Upload de Imagens (Para registro no texto)</label>
-            <input type="file" id="evidenciaFiles" multiple accept="image/*">
-            <p class="text-xs text-text-muted" style="font-size: 0.65rem; margin-top: 4px;">Os nomes serão listados no ticket para lembrar de arrastá-los no Azure.</p>
-          </div>
-          <div class="field">
-            <label class="field-label">Links Externos (Opcional)</label>
-            <textarea name="evidenciasLinks" rows="2" placeholder="Cole links de vídeos ou logs na nuvem."></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- ══════════════════════════════════════════════════════════
+         SEÇÃO: QUALIDADE QA
+    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-checklist">
       <div class="section-head">
         <div class="section-icon icon-blue">✅</div>
         <div class="section-head-text">
-          <h2>Checklist de Qualidade do Ticket</h2>
-          <p>Garante que o dev tem tudo o que precisa</p>
+          <h2>Qualidade QA</h2>
         </div>
+        <label class="section-lock">
+          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
+        </label>
       </div>
       <div class="section-body">
         <div class="checklist-grid" id="checklistGrid"></div>
       </div>
-    </div>
-
-    <div class="action-bar">
-      <button type="button" class="btn-copy" onclick="copiarParaClipboard()">
-        <span>📋</span> Copiar
-      </button>
     </div>
 
   </form>
@@ -389,20 +442,559 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  // ═══════════════════════════════════════════════════════════════════
+  // ESTRUTURA DO MENU — extraída do TMainMenu (untActionList.dfm)
+  // ═══════════════════════════════════════════════════════════════════
+  const MENU = [
+    { label: 'Cadastros', children: [
+      { label: 'Empresa/Filial/Divisão/Departamento' },
+      { label: 'Função' },
+      { label: 'Horário' },
+      { label: 'Sindicatos' },
+      { label: 'Funcionários' },
+      { label: 'Trabalhador Autônomo' },
+      { label: 'Tabela de Eventos' },
+      { label: 'Tabela de Impostos' },
+      { label: 'Básicos', children: [
+        { label: 'Banco/Agência' },
+        { label: 'Convênio Cheque Salário' },
+        { label: 'CAGED' },
+        { label: 'Categoria' },
+        { label: 'Categoria eSocial' },
+        { label: 'CBO' },
+        { label: 'CEP' },
+        { label: 'Classificação Tributária' },
+        { label: 'CNAE' },
+        { label: 'Código da Receita' },
+        { label: 'Código de Afastamento MTE' },
+        { label: 'Exposição Agente Nocivo' },
+        { label: 'Feriado' },
+        { label: 'FPAS/Alíquota' },
+        { label: 'Gerenciador de Validação de Tipo de Folha' },
+        { label: 'Gerenciador de Validação de Tipo de Salário' },
+        { label: 'GPS' },
+        { label: 'Grupos de Evento' },
+        { label: 'Médico' },
+        { label: 'Multinível' },
+        { label: 'Município' },
+        { label: 'Movimento de FGTS' },
+        { label: 'Nacionalidade' },
+        { label: 'Natureza da Rubrica' },
+        { label: 'Natureza do Estabelecimento' },
+        { label: 'Nível Salarial' },
+        { label: 'Operadora de Plano (Saúde/Odontológico)' },
+        { label: 'Processos Administrativos e Judiciais' },
+        { label: 'RAT' },
+        { label: 'Recolhimento da SEFIP' },
+        { label: 'Responsável' },
+        { label: 'Rubrica' },
+        { label: 'Segregação' },
+        { label: 'Situação' },
+        { label: 'Tabela de Exposição a Agente Nocivo' },
+        { label: 'Incidência IRRF' },
+        { label: 'Tipo de Lotação' },
+        { label: 'Treinamento' },
+        { label: 'Vínculo Empregatício' },
+      ]},
+      { label: 'Motivos', children: [
+        { label: 'Afastamento' },
+        { label: 'Afastamento eSocial' },
+        { label: 'Falta' },
+        { label: 'Históricos' },
+        { label: 'Movimentação para RAIS' },
+        { label: 'Rescisão' },
+        { label: 'Tipo de Afastamento Dias Empresa' },
+      ]},
+    ]},
+
+    { label: 'Cálculos', children: [
+      { label: 'Agendamento de Eventos' },
+      { label: 'Ficha Financeira' },
+      { label: 'Gerenciador de Outras Bases por CPF' },
+      { label: 'Gerenciador de Pagamentos Retroativos' },
+      { label: 'Empréstimo Consignado' },
+      { label: 'Gerenciador de Empresas Marcadas para Processar' },
+      { label: 'Gerenciador de Filiais Marcadas para Processar' },
+      { label: 'Fechamento' },
+      { label: 'Adiantamento' },
+      { label: 'Folha Mensal' },
+      { label: 'RPA' },
+      { label: 'Folha Auxiliar', children: [
+        { label: 'Auxiliar' },
+        { label: 'Auxiliar Côngrua' },
+      ]},
+      { label: 'Férias', children: [
+        { label: 'Férias Individuais' },
+        { label: 'Desprocessar Férias Individuais' },
+        { label: 'Férias Coletivas' },
+        { label: 'Gerenciador de Períodos Aquisitivos' },
+      ]},
+      { label: 'Rescisão', children: [
+        { label: 'Aviso Prévio' },
+        { label: 'Desligar Trabalhador Sem Vínculo' },
+        { label: 'Calcular Rescisão' },
+        { label: 'Simular Rescisão' },
+        { label: 'Desprocessar Rescisão' },
+        { label: 'Calcular Rescisão Complementar' },
+        { label: 'Desprocessar Rescisão Complementar' },
+      ]},
+      { label: 'Décimo Terceiro', children: [
+        { label: 'Primeira Parcela' },
+        { label: 'Última Parcela' },
+      ]},
+      { label: 'Provisões', children: [
+        { label: 'Provisão das Férias' },
+        { label: 'Provisão do Décimo Terceiro' },
+      ]},
+      { label: 'Movimentos', children: [
+        { label: 'Adição de Eventos na Agenda' },
+        { label: 'Agenda Rápida por Evento' },
+        { label: 'Agenda Rápida por Funcionário' },
+        { label: 'Exclusão de Eventos de Agenda' },
+        { label: 'Convocação Trabalho Intermitente' },
+        { label: 'Gerenciador de Valores de Pensão Alimentícia' },
+        { label: 'Gerenciador de Valores de Plano' },
+        { label: 'Afastamento' },
+        { label: 'Faltas' },
+      ]},
+      { label: 'Simulação do Cálculo das Médias' },
+      { label: 'Acordo Coletivo', children: [
+        { label: 'Cálculo Acordo Coletivo' },
+        { label: 'Desprocessar Acordo Coletivo' },
+      ]},
+      { label: 'Alteração Salarial', children: [
+        { label: 'Alteração Salarial em Lote' },
+        { label: 'Desprocessar Alteração Salarial' },
+      ]},
+      { label: 'Gerenciador de Apontamento de Horários' },
+      { label: 'Manutenção da Folha' },
+      { label: 'Gerenciador de Cálculos' },
+      { label: 'Alteração da Data de Pagamento' },
+    ]},
+
+    { label: 'Relatórios', children: [
+      { label: 'Aviso Prévio', children: [
+        { label: 'Férias', children: [
+          { label: 'Aviso de Férias a Gozar' },
+          { label: 'Aviso Prévio de Férias em Lote' },
+        ]},
+        { label: 'Rescisão', children: [
+          { label: 'Aviso Prévio' },
+        ]},
+      ]},
+      { label: 'Benefícios' },
+      { label: 'Cadastrais', children: [
+        { label: 'Divisão/Departamento' },
+        { label: 'Empresa' },
+        { label: 'Empresa/Filial' },
+        { label: 'Eventos' },
+        { label: 'Função' },
+        { label: 'Histórico' },
+        { label: 'Quadro de Horário' },
+        { label: 'Sindicato' },
+      ]},
+      { label: 'eSocial', children: [
+        { label: 'Conferência de Impostos' },
+        { label: 'FGTS eSocial Folha S5003' },
+        { label: 'INSS eSocial Folha S5001' },
+        { label: 'IR eSocial Folha S5002' },
+        { label: 'Totalizador INSS Empresa S5011' },
+        { label: 'Totalizador IR Empresa S5012' },
+        { label: 'Totalizador FGTS Empresa S5013' },
+      ]},
+      { label: 'Folha', children: [
+        { label: 'Agendamento' },
+        { label: 'Contas Integração Contábil' },
+        { label: 'Empréstimo Consignado' },
+        { label: 'Custo do Funcionário' },
+        { label: 'Demonstrativo das Médias Variáveis' },
+        { label: 'Encargos da Folha' },
+        { label: 'Fechamento Mensal' },
+        { label: 'Ficha Financeira' },
+        { label: 'Imagem da Folha' },
+        { label: 'Relação de Trabalhador por Evento' },
+        { label: 'Relação Salarial dos Funcionários' },
+        { label: 'RPA — Centro de Custo' },
+        { label: 'Segregação' },
+        { label: 'Resumo da Folha' },
+      ]},
+      { label: 'Funcionários', children: [
+        { label: 'Autorização de Uso de Imagem do Colaborador' },
+        { label: 'Cargos e Salários' },
+        { label: 'Combo Admissional' },
+        { label: 'Declaração de Dependentes' },
+        { label: 'Demonstrativo de Acordo Coletivo' },
+        { label: 'Dependentes' },
+        { label: 'Ficha de Registro do Funcionário' },
+        { label: 'Ficha de Salário Família' },
+        { label: 'Informe de Rendimentos' },
+        { label: 'Listagem de Aniversariantes' },
+        { label: 'Listagem de Funcionários' },
+        { label: 'Listagem de Recibo de Cestas Básicas' },
+        { label: 'Movimentação de Funcionários' },
+        { label: 'Ocorrências', children: [
+          { label: 'Afastamento' },
+          { label: 'Aviso de Advertência/Suspensão' },
+          { label: 'Faltas' },
+        ]},
+        { label: 'Ocorrências para Carteira de Trabalho' },
+        { label: 'Perfil Profissiográfico Previdenciário' },
+        { label: 'Protocolo de Entrega de Documentos' },
+        { label: 'Quadro de Horário de Trabalho' },
+        { label: 'Relatórios Diversos do Funcionário' },
+        { label: 'Termo de Sigilo e Confidencialidade' },
+        { label: 'Termo de Consentimento LGPD' },
+        { label: 'Termo de Quitação Anual' },
+      ]},
+      { label: 'Gerenciador de Modelos de Relatórios' },
+      { label: 'Guias', children: [
+        { label: 'DARF' },
+        { label: 'DARF Avulsa' },
+        { label: 'GPS' },
+        { label: 'GPS Avulsa' },
+        { label: 'GPS Funcionário' },
+      ]},
+      { label: 'Ponto do Funcionário' },
+      { label: 'Recibos', children: [
+        { label: 'Férias', children: [
+          { label: 'Férias a Vencer' },
+          { label: 'Histórico das Férias' },
+          { label: 'Recibo de Férias e Abono' },
+          { label: 'Programação de Férias' },
+          { label: 'Retorno de Férias' },
+        ]},
+        { label: 'Holerite de Pagamento' },
+        { label: 'Recibo de Adiantamento Salarial' },
+        { label: 'Recibo de Pagamento de Côngrua' },
+        { label: 'Rescisão', children: [
+          { label: 'Termo de Rescisão' },
+        ]},
+        { label: 'Recibo de Pagamento de Autônomo' },
+      ]},
+      { label: 'SST' },
+      { label: 'Gerenciais', children: [
+        { label: 'Log de Ações do Usuário' },
+      ]},
+    ]},
+
+    { label: 'Arquivos', children: [
+      { label: 'Cheque Salário' },
+      { label: 'Seguro Desemprego' },
+      { label: 'Obsoletos', children: [
+        { label: 'CAGED' },
+        { label: 'DIRF' },
+        { label: 'GRRF' },
+        { label: 'MANAD' },
+        { label: 'RAIS' },
+        { label: 'SEFIP' },
+      ]},
+    ]},
+
+    { label: 'Importação/Exportação', children: [
+      { label: 'Gerenciador de Layout de Importação' },
+      { label: 'Integração com Financeiro', children: [
+        { label: 'Integração do Rateio', children: [
+          { label: 'Configuração de Integração — Regras de Rateios' },
+          { label: 'Processar/Desprocessar Rateio' },
+        ]},
+        { label: 'Integração Líquidos a Pagar', children: [
+          { label: 'Configuração Líquidos a Pagar ao Financeiro' },
+          { label: 'Processar/Desprocessar Líquido a Pagar ao Financeiro' },
+        ]},
+      ]},
+      { label: 'Integração Contábil', children: [
+        { label: 'Configuração de Contas de Integração Contábil' },
+        { label: 'Processar Contas Integração Contábil' },
+        { label: 'Processar Contas Integração Contábil de Côngrua' },
+      ]},
+      { label: 'Importação', children: [
+        { label: 'Importação para a Agenda do Funcionário' },
+        { label: 'Importação Valores de Plano de Saúde' },
+        { label: 'eSocial' },
+        { label: 'Empréstimo e-Consignado', children: [
+          { label: 'Importação Empréstimo e-Consignado (Arquivo)' },
+          { label: 'Importação Empréstimo e-Consignado (API)' },
+        ]},
+      ]},
+      { label: 'Exportação', children: [
+        { label: 'Exportação XML eSocial — Cadastro de Funcionários' },
+        { label: 'Arquivos para o RHGestor' },
+      ]},
+    ]},
+
+    { label: 'Benefícios', children: [
+      { label: 'Cadastros', children: [
+        { label: 'Benefícios' },
+        { label: 'Empresa Transportadora' },
+        { label: 'Itinerário' },
+        { label: 'Configuração' },
+      ]},
+      { label: 'Calcular Benefícios' },
+      { label: 'Exportação de Benefícios' },
+      { label: 'Alteração de Benefícios em Lote' },
+    ]},
+
+    { label: 'eSocial', children: [
+      { label: 'Painel eSocial' },
+      { label: 'Consulta eSocial' },
+      { label: 'Consulta de Periódicos' },
+      { label: 'Consulta Qualificação Cadastral' },
+      { label: 'Gerenciador de Envio eSocial' },
+      { label: 'Gerenciador de Envio dos Eventos de Tabela' },
+      { label: 'Gerenciador de Retificação em Lote' },
+      { label: 'Processo Trabalhista', children: [
+        { label: 'Processo Trabalhista' },
+        { label: 'Processo Trabalhista — Encargos' },
+      ]},
+    ]},
+
+    { label: 'SST', children: [
+      { label: 'Cadastros Básicos', children: [
+        { label: 'Agente Causador do Acidente de Trabalho' },
+        { label: 'Agentes Nocivos e Atividades' },
+        { label: 'Natureza da Lesão' },
+        { label: 'Parte do Corpo Atingida' },
+        { label: 'Procedimento Diagnóstico' },
+        { label: 'Responsável pelos Registros Ambientais' },
+        { label: 'Situação Causadora de Doença Profissional' },
+        { label: 'Condições de Ambientes do Trabalho' },
+      ]},
+      { label: 'Comunicado de Acidente de Trabalho' },
+      { label: 'Condição de Ambiente de Trabalho Vinculado ao Trabalhador' },
+      { label: 'Monitoramento da Saúde do Trabalhador' },
+    ]},
+
+    { label: 'Ferramentas', children: [
+      { label: 'Altera Senha/Login' },
+      { label: 'Ajuste para o eSocial' },
+      { label: 'Ajuste de Status de Recibos do eSocial' },
+      { label: 'Ajuste de Históricos de Empresa' },
+      { label: 'Ajuste de Datas dos Recibos Migrados' },
+      { label: 'Ajuste de Eventos do eSocial de Funcionário' },
+      { label: 'Ajuste dos Totalizadores' },
+      { label: 'Ajuste Cálculo de Provisão Retroativa (Folhas Mensais)' },
+      { label: 'Atualizar IDs de Organismo nas Filiais' },
+      { label: 'Ajuste para Cálculo e Inserção dos Eventos de Férias' },
+      { label: 'Atualização Incidência PIS' },
+      { label: 'Ajuste Férias Fracionadas FAP' },
+      { label: 'Ajustes Históricos do Funcionário' },
+      { label: 'Gerenciador de Usuários' },
+      { label: 'Remover Funcionário' },
+      { label: 'Transferência de Funcionários Entre Empresas' },
+      { label: 'Duplicar Empresa/Filial/Divisão/Departamento/Funcionários' },
+      { label: 'Remover Empresa/Filial/Divisão/Departamento/Funcionários' },
+      { label: 'Transferência da Tabela de Eventos Entre Empresas' },
+      { label: 'Parâmetros Gerais' },
+      { label: 'Central de Avisos' },
+      { label: 'Gerenciador de Email' },
+      { label: 'Enviar Relatório Via Email' },
+      { label: 'Log DB' },
+      { label: 'Mensagens Para Usuários' },
+    ]},
+  ];
+
+  // ═══════════════════════════════════════════════════════════════════
+  // ESTADO DO NAVEGADOR DE MENU
+  // ═══════════════════════════════════════════════════════════════════
+  let menuStack   = [];   // pilha de nós navegados  [{node, index}]
+  let menuCurrent = MENU; // lista de itens visível agora
+  let menuSelectedPath = ''; // caminho do item-folha selecionado
+  let menuSelectedLeaf = null; // referência ao botão selecionado
+
+  function menuCurrentNode() {
+    return menuStack.length ? menuStack[menuStack.length - 1].node : null;
+  }
+
+  function menuBuildPath(label) {
+    const crumbs = menuStack.map(s => s.node.label);
+    crumbs.push(label);
+    return crumbs.join(' > ');
+  }
+
+  function menuNavigateTo(item) {
+    if (item.children) {
+      menuStack.push({ node: item });
+      menuCurrent = item.children;
+      menuSelectedLeaf = null;
+      document.getElementById('menuFilter').value = '';
+      menuRender();
+    }
+  }
+
+  function menuGoBack() {
+    if (!menuStack.length) return;
+    menuStack.pop();
+    menuCurrent = menuStack.length
+      ? menuStack[menuStack.length - 1].node.children
+      : MENU;
+    menuSelectedLeaf = null;
+    document.getElementById('menuFilter').value = '';
+    menuRender();
+  }
+
+  function menuSelectLeaf(item, btn) {
+    if (menuSelectedLeaf) menuSelectedLeaf.classList.remove('selected');
+    menuSelectedLeaf = btn;
+    btn.classList.add('selected');
+    menuSelectedPath = menuBuildPath(item.label);
+
+    const el = document.getElementById('menuResultPath');
+    el.textContent = menuSelectedPath;
+    document.getElementById('menuResult').style.display = 'flex';
+  }
+
+  function menuRender() {
+    const filter = document.getElementById('menuFilter').value.toLowerCase().trim();
+    const grid   = document.getElementById('menuItemsGrid');
+    const back   = document.getElementById('menuBtnBack');
+    const bc     = document.getElementById('menuBreadcrumb');
+
+    // Botão Voltar
+    back.disabled = menuStack.length === 0;
+
+    // Breadcrumb
+    if (menuStack.length === 0 && !menuSelectedPath) {
+      bc.innerHTML = '<span class="crumb-hint">Selecione um item abaixo para navegar...</span>';
+    } else {
+      let html = '<span class="crumb-root">Menu</span>';
+      menuStack.forEach((s, i) => {
+        html += '<span class="crumb-sep"> › </span>';
+        html += `<span class="crumb" onclick="menuJumpTo(${i})">${s.node.label}</span>`;
+      });
+      bc.innerHTML = html;
+    }
+
+    // Itens filtrados
+    const items = filter
+      ? menuCurrent.filter(i => i.label.toLowerCase().includes(filter))
+      : menuCurrent;
+
+    if (items.length === 0) {
+      grid.innerHTML = '<div class="menu-empty">Nenhum item encontrado.</div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    items.forEach(item => {
+      const hasChildren = !!item.children;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'menu-item-btn' + (hasChildren ? ' has-children' : ' is-leaf');
+
+      const arrow = hasChildren ? '<span class="item-arrow">▶</span>' : '';
+      btn.innerHTML = `<span>${item.label}</span>${arrow}`;
+
+      if (hasChildren) {
+        btn.onclick = () => menuNavigateTo(item);
+      } else {
+        btn.onclick = () => menuSelectLeaf(item, btn);
+      }
+
+      // Restaura seleção visual se este item era o selecionado
+      if (!hasChildren && menuStack.length > 0) {
+        const fullPath = menuBuildPath(item.label);
+        if (fullPath === menuSelectedPath) {
+          btn.classList.add('selected');
+          menuSelectedLeaf = btn;
+        }
+      }
+
+      grid.appendChild(btn);
+    });
+  }
+
+  function menuJumpTo(stackIndex) {
+    // Navega para um nível intermediário da pilha
+    const targetNode = menuStack[stackIndex].node;
+    menuStack = menuStack.slice(0, stackIndex + 1);
+    menuCurrent = targetNode.children;
+    menuSelectedLeaf = null;
+    document.getElementById('menuFilter').value = '';
+    menuRender();
+  }
+
+  function menuCopiarCaminho() {
+    if (!menuSelectedPath) return;
+    navigator.clipboard.writeText(menuSelectedPath).then(() => showToast('✓ Caminho copiado!'));
+  }
+
+  function menuLimparSelecao() {
+    menuSelectedPath = '';
+    if (menuSelectedLeaf) { menuSelectedLeaf.classList.remove('selected'); menuSelectedLeaf = null; }
+    document.getElementById('menuResult').style.display = 'none';
+  }
+
+  // Inicializa o navegador
+  menuRender();
+
+  // ── SIDEBAR SCROLL TRACKING ──
+  (function() {
+    const sections = document.querySelectorAll('.section-card[id]');
+    const navItems = document.querySelectorAll('.nav-item');
+    const observer = new IntersectionObserver(entries => {
+      // Pega a seção mais visível (com maior intersectionRatio)
+      let best = null, bestRatio = 0;
+      entries.forEach(e => { if (e.intersectionRatio > bestRatio) { bestRatio = e.intersectionRatio; best = e.target.id; } });
+      if (!best) return;
+      navItems.forEach(n => {
+        const href = n.getAttribute('href');
+        n.classList.toggle('active', href === '#' + best);
+      });
+    }, { threshold: [0, 0.1, 0.3, 0.5, 0.7, 1], rootMargin: '-60px 0px -30% 0px' });
+    sections.forEach(s => observer.observe(s));
+  })();
+
+  // ═══════════════════════════════════════════════════════════════════
+  // DEMAIS FUNÇÕES
+  // ═══════════════════════════════════════════════════════════════════
   function toggleTheme() {
     const isLight = document.body.classList.toggle("light");
     document.getElementById("themeIcon").textContent  = isLight ? "🌙" : "☀";
     document.getElementById("themeLabel").textContent = isLight ? "Escuro" : "Claro";
   }
 
-  // Checklist do PO
+  function toggleOutroInstancia() {
+    const combo  = document.getElementById("instanciaCombo");
+    const manual = document.getElementById("instanciaManual");
+    manual.style.display = combo.value === "OUTRO" ? "block" : "none";
+    if (combo.value === "OUTRO") manual.setAttribute("required", "true");
+    else manual.removeAttribute("required");
+    updateProgress();
+  }
+
+  function limparTela() {
+    document.querySelectorAll(".section-card").forEach(section => {
+      const lockEl = section.querySelector(".lock-check");
+      if (lockEl && lockEl.checked) return;
+      section.querySelectorAll("input:not(.lock-check), textarea, select").forEach(el => el.value = "");
+      const manual = section.querySelector("#instanciaManual");
+      if (manual) manual.style.display = "none";
+      const dataList = section.querySelector("#dataList");
+      if (dataList) dataList.innerHTML = "";
+      const stepList = section.querySelector("#stepList");
+      if (stepList) stepList.innerHTML = "";
+      section.querySelectorAll(".check-item").forEach(ci => {
+        ci.classList.remove("checked");
+        ci.querySelector("input").checked = false;
+        ci.querySelector(".check-box").textContent = "";
+      });
+      // Se for o card do caminho e não estiver travado, limpa a seleção do menu
+      if (section.id === "sec-caminho") {
+        menuLimparSelecao();
+        menuStack = []; menuCurrent = MENU;
+        document.getElementById('menuFilter').value = '';
+        menuRender();
+      }
+    });
+    updateProgress();
+    showToast("✓ Campos limpos!");
+  }
+
   const checklistItems = [
-    "Busquei por tickets duplicados antes de abrir este",
-    "Validei que não é problema de parametrização/configuração",
-    "Anexei log de erro, print ou gravação de tela no Azure",
-    "Testei em mais de uma base para confirmar se é geral",
-    "A massa de dados informada existe no banco e não foi alterada",
-    "Os passos descritos conseguem ser seguidos por alguém de fora"
+    "Busquei por tickets duplicados",
+    "Validei que não é parametrização",
+    "Anexei log ou print no Azure",
+    "A massa de dados existe no banco"
   ];
 
   const grid = document.getElementById("checklistGrid");
@@ -410,8 +1002,7 @@
     const label = document.createElement("label");
     label.className = "check-item";
     label.innerHTML = `<input type="checkbox" name="checklist" value="${item}"><div class="check-box"></div>${item}`;
-    const cb = label.querySelector("input");
-    cb.addEventListener("change", function() {
+    label.querySelector("input").addEventListener("change", function() {
       label.classList.toggle("checked", this.checked);
       label.querySelector(".check-box").textContent = this.checked ? "✓" : "";
       updateProgress();
@@ -419,200 +1010,156 @@
     grid.appendChild(label);
   });
 
-  // Progress
   function updateProgress() {
-    const fields = document.querySelectorAll("input[required], select[required], textarea[required]");
+    const fields = document.querySelectorAll("input[required]:not([style*='display: none']), select[required], textarea[required]");
     let filled = 0;
     fields.forEach(f => { if (f.value.trim()) filled++; });
-    const pct = Math.round((filled / fields.length) * 100);
-    document.getElementById("progressBar").style.width = pct + "%";
-    document.getElementById("progressLabel").textContent = `${filled} / ${fields.length} preenchidos`;
+    const pct = fields.length ? Math.round((filled / fields.length) * 100) : 0;
+    document.querySelector(".progress-bar-inner").style.width = pct + "%";
+    document.getElementById("progressLabel").textContent = `${filled} / ${fields.length}`;
   }
 
-  document.querySelectorAll("input, select, textarea").forEach(el => {
-    el.addEventListener("input", updateProgress);
-    el.addEventListener("change", updateProgress);
-  });
-  updateProgress();
+  document.addEventListener("input", updateProgress);
 
-  // Switches
-  document.getElementById("chkWorkaround").addEventListener("change", function() {
-    document.getElementById("divWorkaround").classList.toggle("open", this.checked);
-    document.getElementById("toggleWorkaround").classList.toggle("active", this.checked);
-  });
-
-  // Sidebar scroll spy
-  const sections = document.querySelectorAll(".section-card[id]");
-  const navItems = document.querySelectorAll(".nav-item");
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navItems.forEach(n => n.classList.remove("active"));
-        const m = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
-        if (m) m.classList.add("active");
-      }
-    });
-  }, { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" });
-  sections.forEach(s => obs.observe(s));
-
-  // --- STEPS DYNAMIC LIST ---
-  let stepCount = 0;
   function adicionarPasso() {
-    stepCount++;
-    const id = stepCount;
+    const list = document.getElementById("stepList");
+    const id = list.children.length + 1;
     const item = document.createElement("div");
     item.className = "list-item";
-    item.id = `step-${id}`;
-    item.innerHTML = `<span class="list-num">${id}.</span><input type="text" class="step-input" placeholder="Ex: Acesse o menu..."><button type="button" class="btn-remove" onclick="removerPasso(${id})">✕</button>`;
-    document.getElementById("stepList").appendChild(item);
-    atualizarNumerosPassos();
-  }
-  function removerPasso(id) {
-    const el = document.getElementById(`step-${id}`);
-    if (el) { el.style.opacity = "0"; el.style.transform = "scale(0.97)"; el.style.transition = "all 0.18s ease"; setTimeout(() => { el.remove(); atualizarNumerosPassos(); }, 180); }
-  }
-  function atualizarNumerosPassos() {
-    document.querySelectorAll("#stepList .list-item").forEach((step, index) => {
-      step.querySelector(".list-num").textContent = `${index + 1}.`;
-    });
+    item.innerHTML = `<span class="list-num">${id}.</span><input type="text" class="step-input" placeholder="Acesse..."><button type="button" class="btn-remove" onclick="this.parentElement.remove(); atualizarNumerosPassos()">✕</button>`;
+    list.appendChild(item);
   }
 
-  // --- DATA DYNAMIC LIST ---
-  let dataCount = 0;
+  function atualizarNumerosPassos() {
+    document.querySelectorAll("#stepList .list-num").forEach((n, i) => n.textContent = `${i + 1}.`);
+  }
+
   function adicionarMassaDados() {
-    dataCount++;
-    const id = dataCount;
+    const list = document.getElementById("dataList");
     const item = document.createElement("div");
     item.className = "list-item data-item";
-    item.id = `data-${id}`;
-    item.dataset.id = id;
+    item.style.flexDirection = "column";
+    item.style.alignItems = "stretch";
     item.innerHTML = `
-      <span class="list-num" style="position: absolute; top: 12px; left: 14px;">Cenário #${id}</span>
-      <button type="button" class="btn-remove" onclick="removerMassaDados(${id})">✕ Remover</button>
-      <div class="grid-4" style="margin-top: 16px;">
-        <div class="field"><label class="field-label">Empresa</label><input type="text" name="data_emp_${id}" placeholder="Ex: 01"></div>
-        <div class="field"><label class="field-label">Filial</label><input type="text" name="data_fil_${id}" placeholder="Ex: 99"></div>
-        <div class="field"><label class="field-label">Funcionário</label><input type="text" name="data_fun_${id}" placeholder="ID/Matrícula"></div>
-        <div class="field"><label class="field-label">Competência</label><input type="text" name="data_com_${id}" placeholder="MM/AAAA"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span class="list-num">Novo Cenário</span>
+        <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕ Remover</button>
+      </div>
+      <div class="grid-4">
+        <div class="field"><label class="field-label">Empresa</label><input type="text"></div>
+        <div class="field"><label class="field-label">Filial</label><input type="text"></div>
+        <div class="field"><label class="field-label">Func.</label><input type="text"></div>
+        <div class="field"><label class="field-label">Comp.</label><input type="text"></div>
       </div>
     `;
-    document.getElementById("dataList").appendChild(item);
-    atualizarNumerosDados();
-  }
-  function removerMassaDados(id) {
-    const el = document.getElementById(`data-${id}`);
-    if (el) { el.style.opacity = "0"; el.style.transform = "scale(0.97)"; el.style.transition = "all 0.18s ease"; setTimeout(() => { el.remove(); atualizarNumerosDados(); }, 180); }
-  }
-  function atualizarNumerosDados() {
-    document.querySelectorAll("#dataList .data-item").forEach((item, index) => {
-      item.querySelector(".list-num").textContent = `Cenário #${index + 1}`;
-    });
+    list.appendChild(item);
   }
 
-  // Toast System
   function showToast(msg) {
     const t = document.getElementById("toast");
-    t.textContent = msg;
-    t.classList.add("show");
+    t.textContent = msg; t.classList.add("show");
     setTimeout(() => t.classList.remove("show"), 3000);
   }
 
-  // Build Markdown
-  function montarTextoComentario(data) {
-    const req = ["titulo", "modulo", "comportamentoAtual", "comportamentoEsperado", "bancoDados", "criteriosAceite"];
-    for (let r of req) {
-      if (!data.get(r)?.trim()) throw new Error(`Preencha todos os campos sinalizados como obrigatórios.`);
-    }
-
-    let t = `## ${data.get("titulo")}\n\n`;
-    
-    t += `### 🏷️ Identificação\n`;
-    t += `- **Módulo/Tela:** ${data.get("modulo")}\n\n`;
-
-    t += `### 📝 Comportamento & Regras\n`;
-    t += `**O que está acontecendo (Erro):**\n${data.get("comportamentoAtual")}\n\n`;
-    t += `**O que deveria acontecer:**\n${data.get("comportamentoEsperado")}\n\n`;
-    
-    if (data.get("regrasNegocio")?.trim()) t += `**Regras de Negócio Envolvidas:**\n${data.get("regrasNegocio")}\n\n`;
-    if (data.get("variacoes")?.trim()) t += `**Variações/Cenários:**\n${data.get("variacoes")}\n\n`;
-
-    // Processamento da Tabela de Dados
-    t += `### 🗄️ Massa de Dados para Teste\n`;
-    t += `- **Banco/Instância:** ${data.get("bancoDados")}\n`;
-    if (data.get("usuarioAcesso")?.trim()) t += `- **Usuário/Perfil:** ${data.get("usuarioAcesso")}\n`;
-    t += `\n`;
+  function montarMarkdown(data) {
+    const instancia = data.get("instanciaCombo") === "OUTRO" ? data.get("instanciaManual") : data.get("instanciaCombo");
+    let t = `### 🏷️ Identificação\n`;
+    if (menuSelectedPath) t += `- **Caminho:** \`${menuSelectedPath}\`\n`;
+    t += `\n### 📝 Comportamento\n**Erro:** ${data.get("comportamentoAtual")}\n\n`;
+    t += `**Esperado:** ${data.get("comportamentoEsperado")}\n\n`;
+    t += `### 🗄️ Dados\n- **Instância:** \`${instancia}\`\n- **Banco:** \`${data.get("bancoDados")}\`\n`;
+    if (data.get("usuarioAcesso")) t += `- **Usuário:** ${data.get("usuarioAcesso")}\n`;
+    if (data.get("senhaAcesso"))   t += `- **Senha:** ${data.get("senhaAcesso")}\n`;
 
     const dataItems = document.querySelectorAll("#dataList .data-item");
     if (dataItems.length > 0) {
-      t += `| Empresa | Filial | Funcionário | Competência |\n`;
-      t += `|---------|--------|-------------|-------------|\n`;
+      t += `\n| Empresa | Filial | Func. | Comp. |\n|---|---|---|---|\n`;
       dataItems.forEach(item => {
-        const id = item.dataset.id;
-        const emp = data.get(`data_emp_${id}`) || "-";
-        const fil = data.get(`data_fil_${id}`) || "-";
-        const fun = data.get(`data_fun_${id}`) || "-";
-        const com = data.get(`data_com_${id}`) || "-";
-        t += `| ${emp} | ${fil} | ${fun} | ${com} |\n`;
+        const ins = item.querySelectorAll("input");
+        t += `| ${ins[0].value || "-"} | ${ins[1].value || "-"} | ${ins[2].value || "-"} | ${ins[3].value || "-"} |\n`;
       });
-      t += `\n`;
     }
 
-    // Processamento de Passos
-    const stepItems = document.querySelectorAll("#stepList .step-input");
-    let hasSteps = false;
-    let stepsText = `### 🧪 Passos para Reproduzir\n`;
-    stepItems.forEach((input, idx) => {
-      if (input.value.trim()) { hasSteps = true; stepsText += `${idx + 1}. ${input.value.trim()}\n`; }
-    });
-    if (hasSteps) t += stepsText + `\n`;
-
-    const vol = data.get("volumeImpacto");
-    const dep = data.get("dependencias");
-    if (vol?.trim() || dep?.trim()) {
-      t += `### ⚠ Impacto & Dependências\n`;
-      if (vol?.trim()) t += `- **Área Afetada:** ${vol}\n`;
-      if (dep?.trim()) t += `- **Integrações/Dependências:** ${dep}\n`;
-      t += `\n`;
+    const steps = document.querySelectorAll("#stepList .step-input");
+    if (steps.length > 0) {
+      t += `\n### 🧪 Reprodução\n`;
+      steps.forEach((s, i) => { if (s.value) t += `${i+1}. ${s.value}\n`; });
     }
 
-    if (document.getElementById("chkWorkaround").checked && data.get("workaroundDesc")?.trim()) {
-      t += `**Workaround (Solução de Contorno):**\n${data.get("workaroundDesc")}\n\n`;
+    const checked = data.getAll("checklist");
+    if (checked.length > 0) {
+      t += `\n### ✅ Validações QA\n`;
+      checked.forEach(c => t += `- [x] ${c}\n`);
+    }
+    return t;
+  }
+
+  function montarHTML(data) {
+    const instancia = data.get("instanciaCombo") === "OUTRO" ? data.get("instanciaManual") : data.get("instanciaCombo");
+    const caminho   = menuSelectedPath || "—";
+    const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
+
+    let h = `<h3>🏷️ Identificação</h3>`;
+    h += `<p><b>Caminho:</b> <code>${esc(caminho)}</code></p>`;
+
+    h += `<hr><h3>📝 Comportamento</h3>`;
+    h += `<p><b>Resultado Atual:</b><br>${esc(data.get("comportamentoAtual"))}</p>`;
+    h += `<p><b>Resultado Esperado:</b><br>${esc(data.get("comportamentoEsperado"))}</p>`;
+
+    h += `<hr><h3>🗄️ Dados</h3>`;
+    h += `<p><b>Instância:</b> <code>${esc(instancia)}</code> &nbsp; <b>Banco:</b> <code>${esc(data.get("bancoDados"))}</code></p>`;
+    if (data.get("usuarioAcesso")) h += `<p><b>Usuário:</b> ${esc(data.get("usuarioAcesso"))}</p>`;
+    if (data.get("senhaAcesso"))   h += `<p><b>Senha:</b> ${esc(data.get("senhaAcesso"))}</p>`;
+
+    const dataItems = document.querySelectorAll("#dataList .data-item");
+    if (dataItems.length) {
+      h += `<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">`;
+      h += `<tr><th>Empresa</th><th>Filial</th><th>Func.</th><th>Comp.</th></tr>`;
+      dataItems.forEach(item => {
+        const ins = item.querySelectorAll("input");
+        h += `<tr><td>${esc(ins[0].value)||"—"}</td><td>${esc(ins[1].value)||"—"}</td><td>${esc(ins[2].value)||"—"}</td><td>${esc(ins[3].value)||"—"}</td></tr>`;
+      });
+      h += `</table>`;
     }
 
-    // Arquivos e Evidências
-    const fileInput = document.getElementById("evidenciaFiles");
-    const links = data.get("evidenciasLinks");
-    if (fileInput.files.length > 0 || links?.trim()) {
-      t += `### 📸 Evidências / Anexos\n`;
-      if (fileInput.files.length > 0) {
-        t += `⚠️ **Atenção: Os seguintes arquivos devem estar anexados a este card:**\n`;
-        Array.from(fileInput.files).forEach(f => { t += `- \`${f.name}\`\n`; });
-        t += `\n`;
-      }
-      if (links?.trim()) t += `**Links Adicionais:**\n${links}\n\n`;
+    const steps = [...document.querySelectorAll("#stepList .step-input")].map(s => s.value).filter(Boolean);
+    if (steps.length) {
+      h += `<hr><h3>🧪 Reprodução</h3><ol>`;
+      steps.forEach(s => { h += `<li>${esc(s)}</li>`; });
+      h += `</ol>`;
     }
 
-    t += `### 🎯 Critérios de Aceite & Restrições\n`;
-    t += `**Critérios de Aceite:**\n${data.get("criteriosAceite")}\n\n`;
-    if (data.get("restricoes")?.trim()) t += `**Restrições (Não alterar):**\n${data.get("restricoes")}\n\n`;
-
-    const checkedItems = data.getAll("checklist");
-    if (checkedItems.length > 0) {
-      t += `### ✅ Validações Realizadas (PO/QA)\n`;
-      checklistItems.forEach(item => { if (checkedItems.includes(item)) t += `- [x] ${item}\n`; });
+    const checked = data.getAll("checklist");
+    if (checked.length) {
+      h += `<hr><h3>✅ Validações QA</h3><ul>`;
+      checked.forEach(c => { h += `<li>✅ ${esc(c)}</li>`; });
+      h += `</ul>`;
     }
 
-    return t.trim();
+    return h;
+  }
+
+  function copiarHTML() {
+    const form = document.getElementById("checklistForm");
+    if (!form.checkValidity()) { showToast("⚠ Preencha os obrigatórios."); form.reportValidity(); return; }
+    const data = new FormData(form);
+    const html = montarHTML(data);
+    const htmlBlob = new Blob([html], { type: "text/html" });
+    const textBlob = new Blob([html.replace(/<[^>]+>/g, "")], { type: "text/plain" });
+    navigator.clipboard.write([
+      new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })
+    ]).then(() => showToast("✓ HTML copiado! Cole no Azure."))
+      .catch(() => {
+        // fallback: copia como texto puro
+        navigator.clipboard.writeText(html).then(() => showToast("✓ HTML copiado!"));
+      });
   }
 
   function copiarParaClipboard() {
-    const data = new FormData(document.getElementById("checklistForm"));
-    try {
-      const texto = montarTextoComentario(data);
-      navigator.clipboard.writeText(texto)
-        .then(() => showToast("✓ Copiado para a área de transferência! Cole no ticket."))
-        .catch(err => showToast("⚠ Erro ao copiar o texto."));
-    } catch (err) { showToast("⚠ " + err.message); }
+    const form = document.getElementById("checklistForm");
+    if (!form.checkValidity()) { showToast("⚠ Preencha os obrigatórios."); form.reportValidity(); return; }
+    const data = new FormData(form);
+    navigator.clipboard.writeText(montarMarkdown(data)).then(() => showToast("✓ Markdown copiado!"));
   }
 </script>
 </body>
