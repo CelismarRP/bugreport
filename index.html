@@ -95,13 +95,15 @@
     .nav-item.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(245,158,11,0.2); }
     .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
-    .main { flex: 1; display: flex; flex-direction: column; gap: 48px; min-width: 0; }
+    .main { flex: 1; display: flex; flex-direction: column; gap: 0; min-width: 0; }
     .section-divider { height: 1px; background: linear-gradient(to right, transparent, var(--border-hi) 30%, var(--border-hi) 70%, transparent); margin: -24px 0; }
 
     /* ── SECTION CARD ── */
-    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; animation: fadeUp 0.35s ease both; }
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; animation: fadeUp 0.35s ease both; margin-bottom: 28px;}
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-
+	.section-card:last-child {
+		margin-bottom: 0;
+	  }
     .section-head { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
     .section-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
     .icon-yellow { background: var(--accent-dim); }
@@ -249,7 +251,7 @@
         <span>🗑</span> Limpar
       </button>
       <button type="button" class="btn-top btn-copy-top" onclick="copiarParaClipboard()">
-        <span>📋</span> Markdown
+        <span>📋</span> Copiar Markdown
       </button>
       <button type="button" class="btn-top btn-html-top" onclick="copiarHTML()">
         <span>🌐</span> Copiar HTML
@@ -268,9 +270,9 @@
     <nav class="sidebar-nav">
       <a class="nav-item active" href="#sec-caminho"><div class="nav-dot"></div>Caminho no Menu</a>
       <a class="nav-item" href="#sec-descritivo"><div class="nav-dot"></div>Comportamento</a>
-      <a class="nav-item" href="#sec-dados"><div class="nav-dot"></div>Massa de Dados</a>
+      <a class="nav-item" href="#sec-dados"><div class="nav-dot"></div>Ambiente</a>
       <a class="nav-item" href="#sec-passos"><div class="nav-dot"></div>Reprodução</a>
-      <a class="nav-item" href="#sec-checklist"><div class="nav-dot"></div>Qualidade QA</a>
+      <a class="nav-item" href="#sec-checklist"><div class="nav-dot"></div>Checklist</a>
     </nav>
   </aside>
 
@@ -292,11 +294,6 @@
         </label>
       </div>
       <div class="section-body">
-
-        <!-- Breadcrumb -->
-        <div class="menu-nav-breadcrumb" id="menuBreadcrumb">
-          <span class="crumb-hint">Selecione um item abaixo para navegar...</span>
-        </div>
 
         <!-- Filtro + Voltar -->
         <div class="menu-nav-filter">
@@ -344,13 +341,13 @@
     </div>
 
     <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: MASSA DE DADOS
+         SEÇÃO: Ambiente
     ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-dados">
       <div class="section-head">
         <div class="section-icon icon-purple">🗄</div>
         <div class="section-head-text">
-          <h2>Massa de Dados</h2>
+          <h2>Ambiente</h2>
           <p>Acesso e ambiente</p>
         </div>
         <label class="section-lock">
@@ -418,13 +415,13 @@
     </div>
 
     <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: QUALIDADE QA
+         SEÇÃO: CHECKLIST
     ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-checklist">
       <div class="section-head">
         <div class="section-icon icon-blue">✅</div>
         <div class="section-head-text">
-          <h2>Qualidade QA</h2>
+          <h2>Checklist</h2>
         </div>
         <label class="section-lock">
           <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
@@ -852,17 +849,7 @@
     // Botão Voltar
     back.disabled = menuStack.length === 0;
 
-    // Breadcrumb
-    if (menuStack.length === 0 && !menuSelectedPath) {
-      bc.innerHTML = '<span class="crumb-hint">Selecione um item abaixo para navegar...</span>';
-    } else {
-      let html = '<span class="crumb-root">Menu</span>';
-      menuStack.forEach((s, i) => {
-        html += '<span class="crumb-sep"> › </span>';
-        html += `<span class="crumb" onclick="menuJumpTo(${i})">${s.node.label}</span>`;
-      });
-      bc.innerHTML = html;
-    }
+
 
     // Itens filtrados
     const items = filter
@@ -994,7 +981,7 @@
     "Busquei por tickets duplicados",
     "Validei que não é parametrização",
     "Anexei log ou print no Azure",
-    "A massa de dados existe no banco"
+    "O cenário existe no banco"
   ];
 
   const grid = document.getElementById("checklistGrid");
