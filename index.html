@@ -78,8 +78,6 @@
     .btn-top { display: flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; font-family: var(--sans); transition: all 0.2s; }
     .btn-copy-top { background: var(--accent); color: #000; }
     .btn-copy-top:hover { background: #fbbf24; transform: translateY(-1px); }
-    .btn-html-top { background: var(--blue-dim); color: var(--blue); border-color: rgba(96,165,250,0.3); }
-    .btn-html-top:hover { background: rgba(96,165,250,0.25); transform: translateY(-1px); }
     .btn-clear-top { background: transparent; color: var(--text-muted); border-color: var(--border); }
     .btn-clear-top:hover { background: var(--red-dim); color: var(--red); border-color: rgba(248,113,113,0.3); }
 
@@ -251,10 +249,7 @@
         <span>🗑</span> Limpar
       </button>
       <button type="button" class="btn-top btn-copy-top" onclick="copiarParaClipboard()">
-        <span>📋</span> Copiar Markdown
-      </button>
-      <button type="button" class="btn-top btn-html-top" onclick="copiarHTML()">
-        <span>🌐</span> Copiar HTML
+        <span>📋</span> Copiar
       </button>
     </div>
 
@@ -279,9 +274,6 @@
   <main class="main">
   <form id="checklistForm">
 
-    <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: CAMINHO NO MENU
-    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-caminho">
       <div class="section-head">
         <div class="section-icon icon-green">🗺</div>
@@ -295,16 +287,13 @@
       </div>
       <div class="section-body">
 
-        <!-- Filtro + Voltar -->
         <div class="menu-nav-filter">
           <button type="button" class="btn-back" id="menuBtnBack" onclick="menuGoBack()" disabled>← Voltar</button>
           <input type="text" id="menuFilter" placeholder="Filtrar itens..." oninput="menuRender()" autocomplete="off">
         </div>
 
-        <!-- Grade de itens -->
         <div class="menu-items-grid" id="menuItemsGrid"></div>
 
-        <!-- Resultado do caminho selecionado -->
         <div class="menu-nav-result" id="menuResult" style="display:none;">
           <span class="result-path" id="menuResultPath"></span>
           <button type="button" class="btn-copy-path" onclick="menuCopiarCaminho()">📋 Copiar Caminho</button>
@@ -314,9 +303,6 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: COMPORTAMENTO
-    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-descritivo">
       <div class="section-head">
         <div class="section-icon icon-blue">📝</div>
@@ -340,9 +326,6 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: Ambiente
-    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-dados">
       <div class="section-head">
         <div class="section-icon icon-purple">🗄</div>
@@ -394,9 +377,6 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: REPRODUÇÃO
-    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-passos">
       <div class="section-head">
         <div class="section-icon icon-yellow">🧪</div>
@@ -414,9 +394,6 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════════
-         SEÇÃO: CHECKLIST
-    ══════════════════════════════════════════════════════════ -->
     <div class="section-card" id="sec-checklist">
       <div class="section-head">
         <div class="section-icon icon-blue">✅</div>
@@ -849,8 +826,6 @@
     // Botão Voltar
     back.disabled = menuStack.length === 0;
 
-
-
     // Itens filtrados
     const items = filter
       ? menuCurrent.filter(i => i.label.toLowerCase().includes(filter))
@@ -1060,10 +1035,21 @@
 
     const dataItems = document.querySelectorAll("#dataList .data-item");
     if (dataItems.length > 0) {
-      t += `\n| Empresa | Filial | Func. | Comp. |\n|---|---|---|---|\n`;
-      dataItems.forEach(item => {
+      t += `\n### 🗂️ Cenários Testados\n\n`;
+      dataItems.forEach((item, idx) => {
         const ins = item.querySelectorAll("input");
-        t += `| ${ins[0].value || "-"} | ${ins[1].value || "-"} | ${ins[2].value || "-"} | ${ins[3].value || "-"} |\n`;
+        const emp = ins[0].value || "-";
+        const fil = ins[1].value || "-";
+        const fun = ins[2].value || "-";
+        const comp = ins[3].value || "-";
+        
+        t += `**Cenário ${idx + 1}**\n\n`;
+        t += `| Campo | Valor |\n`;
+        t += `|---|---|\n`;
+        t += `| **Empresa** | ${emp} |\n`;
+        t += `| **Filial** | ${fil} |\n`;
+        t += `| **Func.** | ${fun} |\n`;
+        t += `| **Comp.** | ${comp} |\n\n`;
       });
     }
 
@@ -1081,72 +1067,11 @@
     return t;
   }
 
-  function montarHTML(data) {
-    const instancia = data.get("instanciaCombo") === "OUTRO" ? data.get("instanciaManual") : data.get("instanciaCombo");
-    const caminho   = menuSelectedPath || "—";
-    const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
-
-    let h = `<h3>🏷️ Identificação</h3>`;
-    h += `<p><b>Caminho:</b> <code>${esc(caminho)}</code></p>`;
-
-    h += `<hr><h3>📝 Comportamento</h3>`;
-    h += `<p><b>Resultado Atual:</b><br>${esc(data.get("comportamentoAtual"))}</p>`;
-    h += `<p><b>Resultado Esperado:</b><br>${esc(data.get("comportamentoEsperado"))}</p>`;
-
-    h += `<hr><h3>🗄️ Dados</h3>`;
-    h += `<p><b>Instância:</b> <code>${esc(instancia)}</code> &nbsp; <b>Banco:</b> <code>${esc(data.get("bancoDados"))}</code></p>`;
-    if (data.get("usuarioAcesso")) h += `<p><b>Usuário:</b> ${esc(data.get("usuarioAcesso"))}</p>`;
-    if (data.get("senhaAcesso"))   h += `<p><b>Senha:</b> ${esc(data.get("senhaAcesso"))}</p>`;
-
-    const dataItems = document.querySelectorAll("#dataList .data-item");
-    if (dataItems.length) {
-      h += `<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">`;
-      h += `<tr><th>Empresa</th><th>Filial</th><th>Func.</th><th>Comp.</th></tr>`;
-      dataItems.forEach(item => {
-        const ins = item.querySelectorAll("input");
-        h += `<tr><td>${esc(ins[0].value)||"—"}</td><td>${esc(ins[1].value)||"—"}</td><td>${esc(ins[2].value)||"—"}</td><td>${esc(ins[3].value)||"—"}</td></tr>`;
-      });
-      h += `</table>`;
-    }
-
-    const steps = [...document.querySelectorAll("#stepList .step-input")].map(s => s.value).filter(Boolean);
-    if (steps.length) {
-      h += `<hr><h3>🧪 Reprodução</h3><ol>`;
-      steps.forEach(s => { h += `<li>${esc(s)}</li>`; });
-      h += `</ol>`;
-    }
-
-    const checked = data.getAll("checklist");
-    if (checked.length) {
-      h += `<hr><h3>✅ Validações QA</h3><ul>`;
-      checked.forEach(c => { h += `<li>✅ ${esc(c)}</li>`; });
-      h += `</ul>`;
-    }
-
-    return h;
-  }
-
-  function copiarHTML() {
-    const form = document.getElementById("checklistForm");
-    if (!form.checkValidity()) { showToast("⚠ Preencha os obrigatórios."); form.reportValidity(); return; }
-    const data = new FormData(form);
-    const html = montarHTML(data);
-    const htmlBlob = new Blob([html], { type: "text/html" });
-    const textBlob = new Blob([html.replace(/<[^>]+>/g, "")], { type: "text/plain" });
-    navigator.clipboard.write([
-      new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })
-    ]).then(() => showToast("✓ HTML copiado! Cole no Azure."))
-      .catch(() => {
-        // fallback: copia como texto puro
-        navigator.clipboard.writeText(html).then(() => showToast("✓ HTML copiado!"));
-      });
-  }
-
   function copiarParaClipboard() {
     const form = document.getElementById("checklistForm");
     if (!form.checkValidity()) { showToast("⚠ Preencha os obrigatórios."); form.reportValidity(); return; }
     const data = new FormData(form);
-    navigator.clipboard.writeText(montarMarkdown(data)).then(() => showToast("✓ Markdown copiado!"));
+    navigator.clipboard.writeText(montarMarkdown(data)).then(() => showToast("✓ Copiado para a área de transferência!"));
   }
 </script>
 </body>
