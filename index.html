@@ -1059,10 +1059,13 @@
       steps.forEach((s, i) => { if (s.value) t += `${i+1}. ${s.value}\n`; });
     }
 
-    const checked = data.getAll("checklist");
-    if (checked.length > 0) {
+	const allCheckboxes = document.querySelectorAll('input[name="checklist"]');
+    if (allCheckboxes.length > 0) {
       t += `\n### ✅ Validações QA\n`;
-      checked.forEach(c => t += `- [x] ${c}\n`);
+      allCheckboxes.forEach(c => {
+        const icone = c.checked ? '✅' : '⬜';
+        t += `- ${icone} ${c.value}\n`;
+      });
     }
     return t;
   }
