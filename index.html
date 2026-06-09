@@ -94,15 +94,25 @@
     .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
     .main { flex: 1; display: flex; flex-direction: column; gap: 0; min-width: 0; }
-    .section-divider { height: 1px; background: linear-gradient(to right, transparent, var(--border-hi) 30%, var(--border-hi) 70%, transparent); margin: -24px 0; }
+
+    /* ── AUTOCOMPLETE COMPONENT ── */
+    .autocomplete-wrapper { position: relative; width: 100%; }
+    .autocomplete-list { 
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 999;
+      background: var(--surface-3); border: 1px solid var(--accent); border-radius: var(--r);
+      max-height: 220px; overflow-y: auto; display: none; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .autocomplete-list.show { display: block; }
+    .autocomplete-option { padding: 10px 14px; font-size: 0.78rem; font-family: var(--mono); color: var(--text); cursor: pointer; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    .autocomplete-option:last-child { border-bottom: none; }
+    .autocomplete-option:hover { background: var(--accent-dim); color: var(--accent); }
+    .autocomplete-option strong { color: var(--accent); }
 
     /* ── SECTION CARD ── */
-    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; animation: fadeUp 0.35s ease both; margin-bottom: 28px;}
+    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: visible; animation: fadeUp 0.35s ease both; margin-bottom: 28px;}
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-	.section-card:last-child {
-		margin-bottom: 0;
-	  }
-    .section-head { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+	.section-card:last-child { margin-bottom: 0; }
+    .section-head { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--surface-2); border-top-left-radius: var(--r-lg); border-top-right-radius: var(--r-lg); }
     .section-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
     .icon-yellow { background: var(--accent-dim); }
     .icon-blue   { background: var(--blue-dim); }
@@ -118,12 +128,12 @@
     .lock-icon { font-size: 14px; opacity: 0.3; transition: all 0.2s; }
     .section-lock input:checked + .lock-icon { opacity: 1; color: var(--accent); }
 
-    .section-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 22px; }
+    .section-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 22px; border-bottom-left-radius: var(--r-lg); border-bottom-right-radius: var(--r-lg); }
 
     /* ── FIELDS ── */
     .field { display: flex; flex-direction: column; gap: 6px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+    .grid-dynamic { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 14px; }
     .field-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--mono); display: flex; align-items: center; gap: 6px; }
     .tag-req { font-size: 0.58rem; font-weight: 700; color: var(--accent); background: var(--accent-dim); border-radius: 4px; padding: 1px 5px; }
     .tag-opt { font-size: 0.65rem; font-weight: 400; color: var(--text-dim); text-transform: none; font-family: var(--sans); }
@@ -132,17 +142,21 @@
     input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--accent); background: var(--surface-3); box-shadow: 0 0 0 3px var(--accent-glow); }
     textarea { resize: vertical; }
 
-    /* ── LISTS ── */
-    .list-container { display: flex; flex-direction: column; gap: 10px; }
-    .list-item { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); background: var(--surface-2); padding: 8px 14px; border-radius: var(--r); position: relative; }
+    /* ── LISTS & STEPS ── */
+    .list-container { display: flex; flex-direction: column; gap: 14px; }
+    .list-item { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); background: var(--surface-2); padding: 14px; border-radius: var(--r); position: relative; }
     .list-num { font-family: var(--mono); font-size: 0.75rem; font-weight: 700; color: var(--accent); flex-shrink: 0; }
-    .list-item input.step-input { flex: 1; background: transparent; border: none; padding: 4px; color: var(--text); font-size: 0.85rem; outline: none; }
-    .btn-remove { background: none; border: none; cursor: pointer; color: var(--text-dim); font-size: 0.75rem; padding: 5px; transition: color 0.2s; }
+    .btn-remove { background: none; border: none; cursor: pointer; color: var(--text-dim); font-size: 0.75rem; padding: 5px; transition: color 0.2s; font-family: var(--mono); }
     .btn-remove:hover { color: var(--red); }
     .btn-add { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 1.5px dashed var(--border-hi); border-radius: var(--r); background: transparent; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     .btn-add:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
+    .step-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .step-input { flex: 1; background: var(--surface-3); border: 1px solid var(--border); border-radius: var(--r); padding: 7px 11px; font-family: var(--sans); font-size: 0.8rem; color: var(--text); outline: none; }
+    .step-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
     /* ── CHECKLIST ── */
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface-2); font-size: 0.78rem; color: var(--text-muted); cursor: pointer; }
     .check-item.checked { background: var(--accent-dim); border-color: rgba(245,158,11,0.3); color: var(--accent); }
     .check-item input { display: none; }
@@ -158,16 +172,7 @@
       background: var(--surface-3); border: 1px solid var(--border); border-radius: var(--r);
       padding: 10px 14px; font-family: var(--mono); font-size: 0.72rem; min-height: 42px;
     }
-    .menu-nav-breadcrumb .crumb-root { color: var(--text-dim); }
-    .menu-nav-breadcrumb .crumb { color: var(--blue); cursor: pointer; }
-    .menu-nav-breadcrumb .crumb:hover { text-decoration: underline; }
-    .menu-nav-breadcrumb .crumb-sep { color: var(--text-dim); }
-    .menu-nav-breadcrumb .crumb-current { color: var(--accent); font-weight: 700; }
-    .menu-nav-breadcrumb .crumb-hint { color: var(--text-dim); font-style: italic; }
-
-    .menu-nav-filter {
-      display: flex; gap: 8px; align-items: center;
-    }
+    .menu-nav-filter { display: flex; gap: 8px; align-items: center; }
     .menu-nav-filter input {
       flex: 1; background: var(--surface-2); border: 1px solid var(--border);
       border-radius: var(--r); padding: 8px 12px; font-size: 0.8rem;
@@ -183,9 +188,7 @@
     .btn-back:hover { color: var(--text); border-color: var(--border-hi); }
     .btn-back:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    .menu-items-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;
-    }
+    .menu-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
     .menu-item-btn {
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
       padding: 9px 12px; border-radius: var(--r);
@@ -226,7 +229,7 @@
     @media (max-width: 900px) {
       .topbar-right .progress-group { display: none; }
       .sidebar { display: none; }
-      .grid-2, .grid-4 { grid-template-columns: 1fr; }
+      .grid-2, .grid-dynamic, .checklist-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -266,7 +269,6 @@
       <a class="nav-item active" href="#sec-caminho"><div class="nav-dot"></div>Caminho no Menu</a>
       <a class="nav-item" href="#sec-descritivo"><div class="nav-dot"></div>Comportamento</a>
       <a class="nav-item" href="#sec-dados"><div class="nav-dot"></div>Ambiente</a>
-      <a class="nav-item" href="#sec-passos"><div class="nav-dot"></div>Reprodução</a>
       <a class="nav-item" href="#sec-checklist"><div class="nav-dot"></div>Checklist</a>
     </nav>
   </aside>
@@ -286,20 +288,16 @@
         </label>
       </div>
       <div class="section-body">
-
         <div class="menu-nav-filter">
           <button type="button" class="btn-back" id="menuBtnBack" onclick="menuGoBack()" disabled>← Voltar</button>
           <input type="text" id="menuFilter" placeholder="Filtrar itens..." oninput="menuRender()" autocomplete="off">
         </div>
-
         <div class="menu-items-grid" id="menuItemsGrid"></div>
-
         <div class="menu-nav-result" id="menuResult" style="display:none;">
           <span class="result-path" id="menuResultPath"></span>
           <button type="button" class="btn-copy-path" onclick="menuCopiarCaminho()">📋 Copiar Caminho</button>
           <button type="button" class="btn-clear-path" onclick="menuLimparSelecao()" title="Limpar seleção">✕</button>
         </div>
-
       </div>
     </div>
 
@@ -331,7 +329,7 @@
         <div class="section-icon icon-purple">🗄</div>
         <div class="section-head-text">
           <h2>Ambiente</h2>
-          <p>Acesso e ambiente</p>
+          <p>Acesso e dados para testes</p>
         </div>
         <label class="section-lock">
           <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
@@ -355,9 +353,10 @@
             </select>
             <input type="text" name="instanciaManual" id="instanciaManual" style="display:none; margin-top:8px;" placeholder="Digite a instância...">
           </div>
-          <div class="field">
+          <div class="field autocomplete-wrapper">
             <label class="field-label">Banco de Dados <span class="tag-req">obrigatório</span></label>
-            <input type="text" name="bancoDados" required placeholder="Ex: PRD_CLIENTE_A">
+            <input type="text" name="bancoDados" id="bancoDadosInput" required placeholder="Pesquise o banco..." autocomplete="off">
+            <div class="autocomplete-list" id="bancoDadosList"></div>
           </div>
         </div>
 
@@ -372,25 +371,8 @@
           </div>
         </div>
 
-        <div class="list-container" id="dataList"></div>
-        <button type="button" class="btn-add" onclick="adicionarMassaDados()">+ Adicionar Cenário</button>
-      </div>
-    </div>
-
-    <div class="section-card" id="sec-passos">
-      <div class="section-head">
-        <div class="section-icon icon-yellow">🧪</div>
-        <div class="section-head-text">
-          <h2>Reprodução</h2>
-          <p>Passo a passo</p>
-        </div>
-        <label class="section-lock">
-          <input type="checkbox" class="lock-check"> <span class="lock-icon">🔒</span> Manter
-        </label>
-      </div>
-      <div class="section-body">
-        <div class="list-container" id="stepList"></div>
-        <button type="button" class="btn-add" onclick="adicionarPasso()">+ Adicionar Passo</button>
+        <div class="list-container" id="dataList" style="margin-top: 8px;"></div>
+        <button type="button" class="btn-add" onclick="adicionarMassaDados()">+ Novo Cenário</button>
       </div>
     </div>
 
@@ -480,7 +462,6 @@
         { label: 'Tipo de Afastamento Dias Empresa' },
       ]},
     ]},
-
     { label: 'Cálculos', children: [
       { label: 'Agendamento de Eventos' },
       { label: 'Ficha Financeira' },
@@ -545,7 +526,6 @@
       { label: 'Gerenciador de Cálculos' },
       { label: 'Alteração da Data de Pagamento' },
     ]},
-
     { label: 'Relatórios', children: [
       { label: 'Aviso Prévio', children: [
         { label: 'Férias', children: [
@@ -650,7 +630,6 @@
         { label: 'Log de Ações do Usuário' },
       ]},
     ]},
-
     { label: 'Arquivos', children: [
       { label: 'Cheque Salário' },
       { label: 'Seguro Desemprego' },
@@ -663,7 +642,6 @@
         { label: 'SEFIP' },
       ]},
     ]},
-
     { label: 'Importação/Exportação', children: [
       { label: 'Gerenciador de Layout de Importação' },
       { label: 'Integração com Financeiro', children: [
@@ -695,7 +673,6 @@
         { label: 'Arquivos para o RHGestor' },
       ]},
     ]},
-
     { label: 'Benefícios', children: [
       { label: 'Cadastros', children: [
         { label: 'Benefícios' },
@@ -707,7 +684,6 @@
       { label: 'Exportação de Benefícios' },
       { label: 'Alteração de Benefícios em Lote' },
     ]},
-
     { label: 'eSocial', children: [
       { label: 'Painel eSocial' },
       { label: 'Consulta eSocial' },
@@ -721,7 +697,6 @@
         { label: 'Processo Trabalhista — Encargos' },
       ]},
     ]},
-
     { label: 'SST', children: [
       { label: 'Cadastros Básicos', children: [
         { label: 'Agente Causador do Acidente de Trabalho' },
@@ -737,7 +712,6 @@
       { label: 'Condição de Ambiente de Trabalho Vinculado ao Trabalhador' },
       { label: 'Monitoramento da Saúde do Trabalhador' },
     ]},
-
     { label: 'Ferramentas', children: [
       { label: 'Altera Senha/Login' },
       { label: 'Ajuste para o eSocial' },
@@ -770,14 +744,10 @@
   // ═══════════════════════════════════════════════════════════════════
   // ESTADO DO NAVEGADOR DE MENU
   // ═══════════════════════════════════════════════════════════════════
-  let menuStack   = [];   // pilha de nós navegados  [{node, index}]
-  let menuCurrent = MENU; // lista de itens visível agora
-  let menuSelectedPath = ''; // caminho do item-folha selecionado
-  let menuSelectedLeaf = null; // referência ao botão selecionado
-
-  function menuCurrentNode() {
-    return menuStack.length ? menuStack[menuStack.length - 1].node : null;
-  }
+  let menuStack   = [];
+  let menuCurrent = MENU;
+  let menuSelectedPath = '';
+  let menuSelectedLeaf = null;
 
   function menuBuildPath(label) {
     const crumbs = menuStack.map(s => s.node.label);
@@ -798,9 +768,7 @@
   function menuGoBack() {
     if (!menuStack.length) return;
     menuStack.pop();
-    menuCurrent = menuStack.length
-      ? menuStack[menuStack.length - 1].node.children
-      : MENU;
+    menuCurrent = menuStack.length ? menuStack[menuStack.length - 1].node.children : MENU;
     menuSelectedLeaf = null;
     document.getElementById('menuFilter').value = '';
     menuRender();
@@ -811,9 +779,7 @@
     menuSelectedLeaf = btn;
     btn.classList.add('selected');
     menuSelectedPath = menuBuildPath(item.label);
-
-    const el = document.getElementById('menuResultPath');
-    el.textContent = menuSelectedPath;
+    document.getElementById('menuResultPath').textContent = menuSelectedPath;
     document.getElementById('menuResult').style.display = 'flex';
   }
 
@@ -821,15 +787,10 @@
     const filter = document.getElementById('menuFilter').value.toLowerCase().trim();
     const grid   = document.getElementById('menuItemsGrid');
     const back   = document.getElementById('menuBtnBack');
-    const bc     = document.getElementById('menuBreadcrumb');
 
-    // Botão Voltar
     back.disabled = menuStack.length === 0;
 
-    // Itens filtrados
-    const items = filter
-      ? menuCurrent.filter(i => i.label.toLowerCase().includes(filter))
-      : menuCurrent;
+    const items = filter ? menuCurrent.filter(i => i.label.toLowerCase().includes(filter)) : menuCurrent;
 
     if (items.length === 0) {
       grid.innerHTML = '<div class="menu-empty">Nenhum item encontrado.</div>';
@@ -842,37 +803,19 @@
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'menu-item-btn' + (hasChildren ? ' has-children' : ' is-leaf');
-
       const arrow = hasChildren ? '<span class="item-arrow">▶</span>' : '';
       btn.innerHTML = `<span>${item.label}</span>${arrow}`;
 
-      if (hasChildren) {
-        btn.onclick = () => menuNavigateTo(item);
-      } else {
-        btn.onclick = () => menuSelectLeaf(item, btn);
-      }
+      if (hasChildren) btn.onclick = () => menuNavigateTo(item);
+      else btn.onclick = () => menuSelectLeaf(item, btn);
 
-      // Restaura seleção visual se este item era o selecionado
-      if (!hasChildren && menuStack.length > 0) {
-        const fullPath = menuBuildPath(item.label);
-        if (fullPath === menuSelectedPath) {
-          btn.classList.add('selected');
-          menuSelectedLeaf = btn;
-        }
+      if (!hasChildren && menuStack.length > 0 && menuBuildPath(item.label) === menuSelectedPath) {
+        btn.classList.add('selected');
+        menuSelectedLeaf = btn;
       }
 
       grid.appendChild(btn);
     });
-  }
-
-  function menuJumpTo(stackIndex) {
-    // Navega para um nível intermediário da pilha
-    const targetNode = menuStack[stackIndex].node;
-    menuStack = menuStack.slice(0, stackIndex + 1);
-    menuCurrent = targetNode.children;
-    menuSelectedLeaf = null;
-    document.getElementById('menuFilter').value = '';
-    menuRender();
   }
 
   function menuCopiarCaminho() {
@@ -886,7 +829,6 @@
     document.getElementById('menuResult').style.display = 'none';
   }
 
-  // Inicializa o navegador
   menuRender();
 
   // ── SIDEBAR SCROLL TRACKING ──
@@ -894,17 +836,122 @@
     const sections = document.querySelectorAll('.section-card[id]');
     const navItems = document.querySelectorAll('.nav-item');
     const observer = new IntersectionObserver(entries => {
-      // Pega a seção mais visível (com maior intersectionRatio)
       let best = null, bestRatio = 0;
       entries.forEach(e => { if (e.intersectionRatio > bestRatio) { bestRatio = e.intersectionRatio; best = e.target.id; } });
       if (!best) return;
-      navItems.forEach(n => {
-        const href = n.getAttribute('href');
-        n.classList.toggle('active', href === '#' + best);
-      });
+      navItems.forEach(n => { n.classList.toggle('active', n.getAttribute('href') === '#' + best); });
     }, { threshold: [0, 0.1, 0.3, 0.5, 0.7, 1], rootMargin: '-60px 0px -30% 0px' });
     sections.forEach(s => observer.observe(s));
   })();
+
+
+  // ═══════════════════════════════════════════════════════════════════
+  // AUTOCOMPLETE BASES DE DADOS
+  // ═══════════════════════════════════════════════════════════════════
+  const basesDadosList = [
+    "DIOC_AAGABARITO_PLANO_THEOS", "DIOC_ABAETETUBA_8122", "DIOC_ADMASJMVIANNEY_9459", "DIOC_AFOGADOSINGAZEIRA_8103",
+    "DIOC_ALAGOINHAS_8133", "DIOC_ALMENARA_8181", "DIOC_AMARGOSA_8136", "DIOC_AMPARO_10147", "DIOC_AMPARO_10147_2022",
+    "DIOC_ANAPOLIS_8290", "DIOC_ANGOLA", "DIOC_APARECIDA_8235", "DIOC_APARECIDA_8235_2024", "DIOC_APUCARANA_8250",
+    "DIOC_ARACAJU_8143", "DIOC_ARACATUBA_8219_2021", "DIOC_ARACUAI_8178", "DIOC_ARAGUAINA_10665", "DIOC_ASSIS_8218",
+    "DIOC_ASSOCIACAOSOL_11212", "DIOC_BACABAL_8160", "DIOC_BAGE_8272", "DIOC_BALSAS_8199", "DIOC_BARRA_8135",
+    "DIOC_BARRADOGARCAS_8311", "DIOC_BARREIRAS_8129", "DIOC_BARRETOS_8233", "DIOC_BAURU_8221", "DIOC_BELEMDOPARA_8087",
+    "DIOC_BELOHORIZONTE_8184", "DIOC_BOMJESUSDALAPA_14449", "DIOC_BOMJESUSDEGURGUEIA_8151", "DIOC_BOTUCATU_8216",
+    "DIOC_BRAGANCADOPARA_8092", "DIOC_BRAGANCADOPARAHOSPITAL_3217", "DIOC_BRASILIA_8294", "DIOC_BREJO_9161_2022",
+    "DIOC_CACADOR_8282", "DIOC_CACHOEIRODEITAPEMIRIM_8205", "DIOC_CAETITE_8132", "DIOC_CAICO_8119", "DIOC_CAJAZEIRAS_8113",
+    "DIOC_CAMACARI_11518", "DIOC_CAMETA_8318", "DIOC_CAMPANHA_8195", "DIOC_CAMPINAGRANDE_8111", "DIOC_CAMPINAS_8223",
+    "DIOC_CAMPOGRANDE_8303", "DIOC_CAMPOLIMPO_8211", "DIOC_CAMPOMOURAO_8256", "DIOC_CAMPOS_8172", "DIOC_CARAGUATATUBA_10150",
+    "DIOC_CARATINGA_8176", "DIOC_CAROLINA_8162_2023", "DIOC_CARUARU_8105", "DIOC_CASAFRATFRATTUTTI_11698", "DIOC_CASCAVEL_8257",
+    "DIOC_CASTANHALPARA_9539", "DIOC_CATANDUVA_10153", "DIOC_CAXIASDOMARANHAO_8159", "DIOC_CHAPECO_8278", "DIOC_CIRCULOOPERARIOBGMAL_12628",
+    "DIOC_CNBB", "DIOC_COARI_8074", "DIOC_COLATINA_8204_2020", "DIOC_COLATINA_CARITAS_8204", "DIOC_COMERCIAL_10265",
+    "DIOC_COMUNIDADEBETHANIA_128951", "DIOC_COMUNIDADECARMELITANA_12129", "DIOC_CONCEICAOARAGUAIA_8091", "DIOC_CONGCARMELITASSMS_2433",
+    "DIOC_CONGFCCANOSSIANOS_14086", "DIOC_CONGREGACAONSBELEM_11761", "DIOC_CONGREGACAOROGACIONISTA_11020", "DIOC_CORNELIOPROCOPIO_8252",
+    "DIOC_CORUMBA_8306", "DIOC_COXIM_8308", "DIOC_CRATEUS_8094", "DIOC_CRICIUMA_8336", "DIOC_CRUZALTA_8269", "DIOC_CRUZDASALMAS_14573",
+    "DIOC_CRUZEIRODOSUL_8077", "DIOC_CUIABA_8309", "DIOC_CURITIBA_8243", "DIOC_DIAMANTINA_8177", "DIOC_DIAMANTINO_1263",
+    "DIOC_DIVINOPOLIS_8186", "DIOC_DOURADOS_8307", "DIOC_DUQUEDECAXIAS_8165_2020", "DIOC_ECLESIAL_69550", "DIOC_EPARQUIAMARONITAS_11623",
+    "DIOC_ESTADOSUNIDOS", "DIOC_ESTANCIA_8144", "DIOC_EUNAPOLIS_8142", "DIOC_FEIRADESANTANA_8134", "DIOC_FLORESTA_8108",
+    "DIOC_FLORIANO_8152", "DIOC_FLORIANOPOLIS_8277", "DIOC_FORMOSA_8295", "DIOC_FORTALEZA_8093", "DIOC_FRANCA_8231",
+    "DIOC_FREDERICOWESTPHALEN_8263", "DIOC_GESTAOFESTA", "DIOC_GOIANIA_8285", "DIOC_GOIAS_8287", "DIOC_GOVERNADORVALADARES_8174",
+    "DIOC_GRAJAU_8158", "DIOC_GRUPO_01", "DIOC_GRUPO_05", "DIOC_GUAJARAMIRIM_8083", "DIOC_GUANHAES_8182", "DIOC_GUARABIRA_8120",
+    "DIOC_GUARAPUAVA_8248", "DIOC_GUARULHOS_8215", "DIOC_HUMAITA_8085_2021", "DIOC_ILHEUS_8141", "DIOC_IMPERATRIZ_8155",
+    "DIOC_INSTCOPIOSAREDENCAO_11765", "DIOC_INSTFEAS_19", "DIOC_INSTITUTOIGESPE_10901", "DIOC_IPAMERI_8292", "DIOC_IRECE_8137",
+    "DIOC_ITABIRA_10745", "DIOC_ITABUNA_8131", "DIOC_ITAGUAI_8166", "DIOC_ITAPETININGA_10148", "DIOC_ITAPEVA_8242",
+    "DIOC_ITAPIPOCA_8099", "DIOC_ITUIUTABA_8192", "DIOC_ITUMBIARA_8289", "DIOC_JABOTICABAL_8230_2020", "DIOC_JACAREZINHO_8251",
+    "DIOC_JALES_8232", "DIOC_JANAUBA_10154", "DIOC_JANUARIA_8180", "DIOC_JARDIM_8304", "DIOC_JATAI_8286_2020", "DIOC_JAU_11571",
+    "DIOC_JEQUIE_8128", "DIOC_JOACABA_8280", "DIOC_JOINVILLE_8284", "DIOC_JUAZEIRO_8126", "DIOC_JUIZDEFORA_8197", "DIOC_JUNDIAI_8240",
+    "DIOC_JUNDIAI_8240_2020", "DIOC_LABREA_8086", "DIOC_LAGES_8281", "DIOC_LEOPOLDINA_8198", "DIOC_LIMEIRA_8225", "DIOC_LINS_8222",
+    "DIOC_LIVRAMENTONSENHORA_8124_2022", "DIOC_LORENA_8237", "DIOC_LUZ_9196", "DIOC_LUZIANIA_8297", "DIOC_MACAPA_10146",
+    "DIOC_MACEIO_8114", "DIOC_MANAUS_8071", "DIOC_MARABA_8090", "DIOC_MARAJO_10145", "DIOC_MARIANA_8173_2020", "DIOC_MARILIA_8220",
+    "DIOC_MARINGA_8253", "DIOC_MIRACEMATOCANTINS_8302", "DIOC_MISSAOKOLBE_11354", "DIOC_MOGIDASCRUZES_8214", "DIOC_MONTENEGRO_11446",
+    "DIOC_MONTESCLAROS_14227", "DIOC_MOSSORO_8118", "DIOC_NAVIRAI_11090", "DIOC_NITEROI_8169", "DIOC_NITEROIPILOTO_8169",
+    "DIOC_NOVAFRIBURGO_8170", "DIOC_NOVAIGUACU_8167", "DIOC_NOVAIGUACU_8167_2022", "DIOC_NSNAZAREDESTERRO_3012", "DIOC_OBIDOS_8317",
+    "DIOC_OLINDAERECIFE_8102", "DIOC_ONGMARCIOJOSEPEREIRA_10313", "DIOC_ORDEMCDBRASIL_12035", "DIOC_ORDINARIADOMILITAR_8316",
+    "DIOC_ORGANISMOSDOTERCEIROSETOR", "DIOC_OSASCO_8209", "DIOC_OURINHOS_9581", "DIOC_PALMARES_8104", "DIOC_PALMAS_8298",
+    "DIOC_PALMEIRADOSINDIOS_8115", "DIOC_PARACATU_8206", "DIOC_PARAIBA_8110", "DIOC_PARANAGUA_8246", "DIOC_PARINTINS_8081",
+    "DIOC_PARNAIBA_8148", "DIOC_PATOS_8112", "DIOC_PATOSDEMINAS_8190", "DIOC_PAULOAFONSO_8138", "DIOC_PEMBA_117801",
+    "DIOC_PENEDO_8116", "DIOC_PENEDO_8116_2022", "DIOC_PESQUEIRA_11196", "DIOC_PESQUEIRA_143065", "DIOC_PESQUEIRA_8109",
+    "DIOC_PESQUEIRACARITAS_207335", "DIOC_PETROLINA_8107", "DIOC_PETROPOLIS_8171_2021", "DIOC_PIRACICABA_8224", "DIOC_PONTADEPEDRAS_8088",
+    "DIOC_PONTADEPEDRAS_8088_2022", "DIOC_PONTAGROSSA_8247", "DIOC_PONTIFICIASOBRASMISSIONARIAS_11316", "DIOC_PORTOALEGRE_8261",
+    "DIOC_PORTONACIONAL_8299", "DIOC_PORTOVELHO_8082", "DIOC_POUSOALEGRE_8193", "DIOC_PRESIDENTEPRUDENTE_8217", "DIOC_PRIMAVERADOLESTE_88412",
+    "DIOC_PROPRIA_8145", "DIOC_PROVINCIACARMELITANAPERNAMBUCANA_11154", "DIOC_PROVINCIAFICBRASIL_12052", "DIOC_PROVSLBRINDES_14258",
+    "DIOC_QA", "DIOC_REGISTRO_8241", "DIOC_RIBEIRAOPRETO_8228", "DIOC_RIBEIRAOPRETO_8228_2022", "DIOC_RIOBRANCO_8072",
+    "DIOC_RIODOSUL_8279", "DIOC_RIOGRANDE_8273", "DIOC_RONDONOPOLIS_8312", "DIOC_RUBIATABA_8291", "DIOC_SANTAMARIA_8262",
+    "DIOC_SANTOAMARO_8213", "DIOC_SANTOANDRE_8210", "DIOC_SANTOANGELO_8266", "DIOC_SANTOS_8208", "DIOC_SAOCARLOS_8227",
+    "DIOC_SAOFELIXDOARAGUAIA_8288", "DIOC_SAOGABRIELDACACHOEIRA_8080", "DIOC_SAOJOAODABOAVISTA_9528", "DIOC_SAOJOAODELREI_8200",
+    "DIOC_SAOJOSEDORIOPRETO_8229", "DIOC_SAOJOSEDOSCAMPOS_8238", "DIOC_SAOJOSEDOSPINHAIS_10583", "DIOC_SAOLUISDOMARANHAO_8153",
+    "DIOC_SAOLUIZDECACERES_8314", "DIOC_SAOMATEUS_8203", "DIOC_SAOMIGUELPAULISTA_8212", "DIOC_SAOPAULO_8207", "DIOC_SAORAIMUNDONONATO_8147",
+    "DIOC_SAOSALVADORDABAHIA_8123", "DIOC_SAOSEBASTIAORIODEJANEIRO_8163", "DIOC_SERRINHA_8291", "DIOC_SETELAGOAS_8185",
+    "DIOC_SINOP_8315", "DIOC_SLMONTESBELOS_8293", "DIOC_SOBRAL_8095", "DIOC_SOROCABA_14498", "DIOC_SUCESSOCLIENTE_9505",
+    "DIOC_SUCESSOGABARITO", "DIOC_TAUBATE_8236", "DIOC_TEIXEIRADEFREITAS_8130", "DIOC_TEOFILOOTONI_8183_2022", "DIOC_TERCEIROSETOR",
+    "DIOC_TERESINA_8146", "DIOC_TETE_12618", "DIOC_THEOS_9505", "DIOC_THEOSAPRESENTACAO_11084", "DIOC_TIANGUA_8101",
+    "DIOC_TOCANTINOPOLIS_8300", "DIOC_TOLEDO_8327", "DIOC_TRESLAGOAS_8305", "DIOC_TUBARAO_8283", "DIOC_UBERLANDIA_8191",
+    "DIOC_UMUARAMA_8254", "DIOC_UNIAODAVITORIA_8245", "DIOC_URUACU_8296", "DIOC_USO_INTERNO", "DIOC_VACARIA_8265",
+    "DIOC_VALENCA_8168", "DIOC_VITORIACONQUISTA_8127", "DIOC_VITORIAES_8202", "DIOC_VOLTAREDONDA_8164", "DIOC_VOTUPORANGA_14252"
+  ];
+
+  function inicializarAutocomplete(inputId, listId) {
+    const input = document.getElementById(inputId);
+    const list = document.getElementById(listId);
+
+    function renderOptions(filterText = "") {
+      list.innerHTML = "";
+      const term = filterText.toLowerCase();
+      const filtered = basesDadosList.filter(d => d.toLowerCase().includes(term));
+      
+      if(filtered.length === 0) {
+        const noRes = document.createElement("div");
+        noRes.className = "autocomplete-option";
+        noRes.textContent = "Nenhum resultado...";
+        list.appendChild(noRes);
+        return;
+      }
+
+      filtered.forEach(d => {
+        const opt = document.createElement("div");
+        opt.className = "autocomplete-option";
+        if (term) {
+          const regex = new RegExp(`(${term})`, "gi");
+          opt.innerHTML = d.replace(regex, "<strong>$1</strong>");
+        } else {
+          opt.textContent = d;
+        }
+
+        opt.addEventListener("mousedown", function(e) {
+          e.preventDefault();
+          input.value = d;
+          list.classList.remove("show");
+          updateProgress();
+        });
+
+        list.appendChild(opt);
+      });
+    }
+
+    input.addEventListener("focus", () => { renderOptions(input.value); list.classList.add("show"); });
+    input.addEventListener("input", (e) => { renderOptions(e.target.value); list.classList.add("show"); });
+    input.addEventListener("blur", () => { list.classList.remove("show"); });
+  }
+
+  inicializarAutocomplete("bancoDadosInput", "bancoDadosList");
 
   // ═══════════════════════════════════════════════════════════════════
   // DEMAIS FUNÇÕES
@@ -928,19 +975,21 @@
     document.querySelectorAll(".section-card").forEach(section => {
       const lockEl = section.querySelector(".lock-check");
       if (lockEl && lockEl.checked) return;
+      
       section.querySelectorAll("input:not(.lock-check), textarea, select").forEach(el => el.value = "");
+      
       const manual = section.querySelector("#instanciaManual");
       if (manual) manual.style.display = "none";
+      
       const dataList = section.querySelector("#dataList");
       if (dataList) dataList.innerHTML = "";
-      const stepList = section.querySelector("#stepList");
-      if (stepList) stepList.innerHTML = "";
+      
       section.querySelectorAll(".check-item").forEach(ci => {
         ci.classList.remove("checked");
         ci.querySelector("input").checked = false;
         ci.querySelector(".check-box").textContent = "";
       });
-      // Se for o card do caminho e não estiver travado, limpa a seleção do menu
+
       if (section.id === "sec-caminho") {
         menuLimparSelecao();
         menuStack = []; menuCurrent = MENU;
@@ -983,38 +1032,63 @@
 
   document.addEventListener("input", updateProgress);
 
-  function adicionarPasso() {
-    const list = document.getElementById("stepList");
-    const id = list.children.length + 1;
-    const item = document.createElement("div");
-    item.className = "list-item";
-    item.innerHTML = `<span class="list-num">${id}.</span><input type="text" class="step-input" placeholder="Acesse..."><button type="button" class="btn-remove" onclick="this.parentElement.remove(); atualizarNumerosPassos()">✕</button>`;
-    list.appendChild(item);
-  }
-
-  function atualizarNumerosPassos() {
-    document.querySelectorAll("#stepList .list-num").forEach((n, i) => n.textContent = `${i + 1}.`);
-  }
-
+  // ── SCENARIOS & REPRODUÇÃO (PASSOS) ──
+  let scenarioCount = 0;
   function adicionarMassaDados() {
+    scenarioCount++;
+    const id = scenarioCount;
     const list = document.getElementById("dataList");
     const item = document.createElement("div");
     item.className = "list-item data-item";
+    item.id = `scenario-${id}`;
     item.style.flexDirection = "column";
     item.style.alignItems = "stretch";
     item.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span class="list-num">Novo Cenário</span>
-        <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕ Remover</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+        <span class="list-num">Cenário #${id}</span>
+        <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()">✕ Remover Cenário</button>
       </div>
-      <div class="grid-4">
-        <div class="field"><label class="field-label">Empresa</label><input type="text"></div>
-        <div class="field"><label class="field-label">Filial</label><input type="text"></div>
-        <div class="field"><label class="field-label">Func.</label><input type="text"></div>
-        <div class="field"><label class="field-label">Comp.</label><input type="text"></div>
+      
+      <div class="grid-dynamic" style="margin-bottom: 18px;">
+        <div class="field"><label class="field-label">Comp.</label><input type="text" class="data-comp" placeholder="Ex: 05/2024"></div>
+        <div class="field"><label class="field-label">Empresa</label><input type="text" class="data-emp" placeholder="Ex: 1"></div>
+        <div class="field"><label class="field-label">Filial</label><input type="text" class="data-fil" placeholder="Ex: 1"></div>
+        <div class="field"><label class="field-label">Divisão</label><input type="text" class="data-div" placeholder="Ex: 1"></div>
+        <div class="field"><label class="field-label">Depto.</label><input type="text" class="data-dep" placeholder="Ex: 1"></div>
+        <div class="field"><label class="field-label">Func.</label><input type="text" class="data-fun" placeholder="Ex: 123"></div>
+        <div class="field"><label class="field-label" style="text-transform:none;">Trab. s/ vínc.</label><input type="text" class="data-tsv" placeholder="Ex: 456"></div>
+      </div>
+
+      <div class="field" style="border-top: 1px dashed var(--border); padding-top: 14px;">
+        <label class="field-label" style="color: var(--accent); margin-bottom: 4px;">
+          <span style="font-size: 14px;">🧪</span> Reprodução (Passos deste cenário)
+        </label>
+        <div class="list-container" id="stepList_${id}" style="gap: 0;"></div>
+        <button type="button" class="btn-add" style="padding: 8px; margin-top: 6px;" onclick="adicionarPasso(${id})">+ Adicionar Passo</button>
       </div>
     `;
     list.appendChild(item);
+  }
+
+  function adicionarPasso(scenarioId) {
+    const list = document.getElementById(`stepList_${scenarioId}`);
+    const stepId = list.children.length + 1;
+    const item = document.createElement("div");
+    item.className = "step-item";
+    item.innerHTML = `
+      <span class="list-num" style="font-size:0.7rem; width: 14px; text-align: right;">${stepId}.</span>
+      <input type="text" class="step-input" placeholder="Acesse ou clique em...">
+      <button type="button" class="btn-remove" onclick="removerPasso(this, ${scenarioId})">✕</button>
+    `;
+    list.appendChild(item);
+  }
+
+  function removerPasso(btn, scenarioId) {
+    btn.parentElement.remove();
+    const list = document.getElementById(`stepList_${scenarioId}`);
+    Array.from(list.children).forEach((item, index) => {
+      item.querySelector('.list-num').textContent = `${index + 1}.`;
+    });
   }
 
   function showToast(msg) {
@@ -1025,43 +1099,69 @@
 
   function montarMarkdown(data) {
     const instancia = data.get("instanciaCombo") === "OUTRO" ? data.get("instanciaManual") : data.get("instanciaCombo");
+    
     let t = `### 🏷️ Identificação\n`;
     if (menuSelectedPath) t += `- **Caminho:** \`${menuSelectedPath}\`\n`;
+    
     t += `\n### 📝 Comportamento\n**Erro:** ${data.get("comportamentoAtual")}\n\n`;
     t += `**Esperado:** ${data.get("comportamentoEsperado")}\n\n`;
+    
     t += `### 🗄️ Dados\n- **Instância:** \`${instancia}\`\n- **Banco:** \`${data.get("bancoDados")}\`\n`;
     if (data.get("usuarioAcesso")) t += `- **Usuário:** ${data.get("usuarioAcesso")}\n`;
     if (data.get("senhaAcesso"))   t += `- **Senha:** ${data.get("senhaAcesso")}\n`;
 
     const dataItems = document.querySelectorAll("#dataList .data-item");
     if (dataItems.length > 0) {
-      t += `\n### 🗂️ Cenários Testados\n\n`;
+      t += `\n### 🗂️ Cenários Testados e Reprodução\n\n`;
       dataItems.forEach((item, idx) => {
-        const ins = item.querySelectorAll("input");
-        const emp = ins[0].value || "-";
-        const fil = ins[1].value || "-";
-        const fun = ins[2].value || "-";
-        const comp = ins[3].value || "-";
-        
-        t += `**Cenário ${idx + 1}**\n\n`;
-        t += `| Campo | Valor |\n`;
-        t += `|---|---|\n`;
-        t += `| **Empresa** | ${emp} |\n`;
-        t += `| **Filial** | ${fil} |\n`;
-        t += `| **Func.** | ${fun} |\n`;
-        t += `| **Comp.** | ${comp} |\n\n`;
-      });
-    }
+        const comp = item.querySelector(".data-comp").value.trim();
+        const emp = item.querySelector(".data-emp").value.trim();
+        const fil = item.querySelector(".data-fil").value.trim();
+        const div = item.querySelector(".data-div").value.trim();
+        const dep = item.querySelector(".data-dep").value.trim();
+        const fun = item.querySelector(".data-fun").value.trim();
+        const tsv = item.querySelector(".data-tsv").value.trim();
 
-    const steps = document.querySelectorAll("#stepList .step-input");
-    if (steps.length > 0) {
-      t += `\n### 🧪 Reprodução\n`;
-      steps.forEach((s, i) => { if (s.value) t += `${i+1}. ${s.value}\n`; });
+        // Filtra apenas os campos que foram preenchidos
+        const fields = [
+          { label: "Comp.", val: comp },
+          { label: "Empresa", val: emp },
+          { label: "Filial", val: fil },
+          { label: "Divisão", val: div },
+          { label: "Departamento", val: dep },
+          { label: "Func.", val: fun },
+          { label: "Trab. s/ vínc.", val: tsv }
+        ].filter(f => f.val);
+
+        t += `**Cenário ${idx + 1}**\n\n`;
+
+        if (fields.length > 0) {
+          t += `| Campo | Valor |\n|---|---|\n`;
+          fields.forEach(f => {
+            t += `| **${f.label}** | ${f.val} |\n`;
+          });
+          t += `\n`;
+        }
+
+        const steps = item.querySelectorAll(".step-input");
+        if (steps.length > 0) {
+          let hasSteps = false;
+          steps.forEach((s, i) => { 
+            if (s.value.trim()) {
+              if(!hasSteps) { t += `**Passos de Reprodução:**\n`; hasSteps = true; }
+              t += `${i+1}. ${s.value.trim()}\n`; 
+            }
+          });
+          if(hasSteps) t += `\n`;
+        }
+        
+        t += `---\n\n`;
+      });
     }
 
 	const allCheckboxes = document.querySelectorAll('input[name="checklist"]');
     if (allCheckboxes.length > 0) {
-      t += `\n### ✅ Validações QA\n`;
+      t += `### ✅ Validações QA\n`;
       allCheckboxes.forEach(c => {
         const icone = c.checked ? '✅' : '⬜';
         t += `- ${icone} ${c.value}\n`;
